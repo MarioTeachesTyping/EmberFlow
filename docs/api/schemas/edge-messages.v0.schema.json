@@ -1,0 +1,163 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://emberflow.local/schemas/edge-messages.v0.schema.json",
+  "title": "EmberFlow edge message envelope (PROPOSAL v0)",
+  "description": "PROPOSAL — not yet approved. Transport-agnostic envelope for messages exchanged between edge stations and the controller. Valid for MQTT or NATS; the transport decision is OPEN (ADR 0004). Change only via a reviewed contracts PR (see docs/api/contracts.md).",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "event_id", "message_type", "station_id", "source_timestamp", "payload"],
+  "properties": {
+    "schema_version": {
+      "description": "Envelope schema version. Bumped on any breaking change.",
+      "const": "0.1"
+    },
+    "event_id": {
+      "description": "Stable unique ID assigned once at the source. Reused unchanged on replay; the controller deduplicates on it.",
+      "$ref": "#/$defs/uuid"
+    },
+    "message_type": {
+      "enum": ["telemetry", "detection", "fps_command", "command_result", "ack"]
+    },
+    "station_id": {
+      "description": "Originating station for edge messages; target station for controller messages (fps_command, ack).",
+      "type": "string",
+      "pattern": "^[a-z0-9][a-z0-9-]{0,62}$"
+    },
+    "source_timestamp": {
+      "description": "UTC time the record was created at its source. Preserved across buffering/replay; never replaced with receive time.",
+      "$ref": "#/$defs/timestamp"
+    },
+    "sequence": {
+      "description": "OPTIONAL proposal: per-station monotonically increasing counter to help order delayed records.",
+      "type": "integer",
+      "minimum": 0
+    },
+    "payload": {
+      "type": "object"
+    }
+  },
+  "allOf": [
+    {
+      "if": { "properties": { "message_type": { "const": "telemetry" } } },
+      "then": { "properties": { "payload": { "$ref": "#/$defs/telemetry" } } }
+    },
+    {
+      "if": { "properties": { "message_type": { "const": "detection" } } },
+      "then": { "properties": { "payload": { "$ref": "#/$defs/detection" } } }
+    },
+    {
+      "if": { "properties": { "message_type": { "const": "fps_command" } } },
+      "then": { "properties": { "payload": { "$ref": "#/$defs/fps_command" } } }
+    },
+    {
+      "if": { "properties": { "message_type": { "const": "command_result" } } },
+      "then": { "properties": { "payload": { "$ref": "#/$defs/command_result" } } }
+    },
+    {
+      "if": { "properties": { "message_type": { "const": "ack" } } },
+      "then": { "properties": { "payload": { "$ref": "#/$defs/ack" } } }
+    }
+  ],
+  "$defs": {
+    "uuid": {
+      "type": "string",
+      "format": "uuid",
+      "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$"
+    },
+    "timestamp": {
+      "description": "RFC 3339 UTC timestamp ending in Z.",
+      "type": "string",
+      "format": "date-time",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(\\.\\d+)?Z$"
+    },
+    "telemetry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "cpu_percent",
+        "memory_percent",
+        "temperature_c",
+        "inference_latency_ms",
+        "processing_fps",
+        "network_status",
+        "camera_status",
+        "active_model_version"
+      ],
+      "properties": {
+        "cpu_percent": { "type": "number", "minimum": 0, "maximum": 100 },
+        "memory_percent": { "type": "number", "minimum": 0, "maximum": 100 },
+        "temperature_c": { "type": "number" },
+        "inference_latency_ms": { "type": "number", "minimum": 0 },
+        "processing_fps": { "type": "number", "minimum": 0 },
+        "network_status": { "enum": ["connected", "degraded", "disconnected"] },
+        "camera_status": { "enum": ["ok", "degraded", "unavailable"] },
+        "video_source_type": { "enum": ["camera", "file"] },
+        "active_model_version": { "type": "string", "minLength": 1 }
+      }
+    },
+    "detection": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["prediction", "confidence", "model_version", "inference_latency_ms"],
+      "properties": {
+        "prediction": { "enum": ["smoke", "no_smoke"] },
+        "confidence": { "type": "number", "minimum": 0, "maximum": 1 },
+        "model_version": { "type": "string", "minLength": 1 },
+        "inference_latency_ms": { "type": "number", "minimum": 0 },
+        "snapshot_ref": {
+          "description": "OPEN DECISION: how/whether review imagery is captured and buffered offline. Null until decided.",
+          "type": ["string", "null"]
+        }
+      }
+    },
+    "fps_command": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["command_id", "requested_fps", "created_at", "expires_at", "policy_reason"],
+      "properties": {
+        "command_id": { "$ref": "#/$defs/uuid" },
+        "requested_fps": { "type": "number", "exclusiveMinimum": 0 },
+        "created_at": { "$ref": "#/$defs/timestamp" },
+        "expires_at": {
+          "description": "Stations must not apply a command received after this time (e.g. replayed after reconnect).",
+          "$ref": "#/$defs/timestamp"
+        },
+        "policy_reason": { "type": "string", "minLength": 1 }
+      }
+    },
+    "command_result": {
+      "description": "Reported by the station. 'requested' is set by the controller on creation and 'verified' only by the controller after comparing telemetry, so neither is a valid station report.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["command_id", "state"],
+      "properties": {
+        "command_id": { "$ref": "#/$defs/uuid" },
+        "state": { "enum": ["accepted", "applied", "failed"] },
+        "applied_fps": { "type": ["number", "null"], "minimum": 0 },
+        "detail": { "type": "string" }
+      }
+    },
+    "ack": {
+      "description": "Durable acknowledgment from the controller. Sent only after records are committed to the database.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["results"],
+      "properties": {
+        "results": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["event_id", "status"],
+            "properties": {
+              "event_id": { "$ref": "#/$defs/uuid" },
+              "status": { "enum": ["stored", "duplicate", "rejected"] },
+              "detail": { "type": "string" }
+            }
+          }
+        }
+      }
+    }
+  }
+}

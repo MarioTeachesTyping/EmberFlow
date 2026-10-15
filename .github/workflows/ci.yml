@@ -1,0 +1,79 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  python:
+    name: Python lint and tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+          cache-dependency-path: requirements-dev.txt
+
+      - name: Install dev tooling
+        run: pip install -r requirements-dev.txt
+
+      - name: Ruff lint
+        run: ruff check .
+
+      - name: Ruff format check
+        run: ruff format --check .
+
+      - name: Pytest
+        run: pytest
+
+  dashboard:
+    # The dashboard project has not been created yet. These steps activate
+    # automatically once dashboard/frontend/package.json is committed, so no
+    # placeholder job runs against code that does not exist.
+    name: Dashboard lint, typecheck and build
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: dashboard/frontend
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Report skipped (no dashboard project yet)
+        if: hashFiles('dashboard/frontend/package.json') == ''
+        working-directory: .
+        run: echo "dashboard/frontend/package.json not found; skipping dashboard checks."
+
+      - uses: actions/setup-node@v4
+        if: hashFiles('dashboard/frontend/package-lock.json') != ''
+        with:
+          node-version: "20"
+          cache: npm
+          cache-dependency-path: dashboard/frontend/package-lock.json
+
+      - name: Install
+        if: hashFiles('dashboard/frontend/package-lock.json') != ''
+        run: npm ci
+
+      # Each script runs only if the dashboard owner defines it in package.json.
+      - name: Lint
+        if: hashFiles('dashboard/frontend/package-lock.json') != ''
+        run: npm run lint --if-present
+
+      - name: Typecheck
+        if: hashFiles('dashboard/frontend/package-lock.json') != ''
+        run: npm run typecheck --if-present
+
+      - name: Test
+        if: hashFiles('dashboard/frontend/package-lock.json') != ''
+        run: npm test --if-present
+
+      - name: Build
+        if: hashFiles('dashboard/frontend/package-lock.json') != ''
+        run: npm run build --if-present

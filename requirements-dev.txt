@@ -1,0 +1,5 @@
+# Shared development tooling used by CI and the contract-schema tests.
+# Subsystem runtime dependencies belong with each subsystem.
+pytest>=8.0
+ruff>=0.6
+jsonschema>=4.21

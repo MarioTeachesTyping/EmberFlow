@@ -1,0 +1,13 @@
+{
+  "schema_version": "0.1",
+  "event_id": "9e8d7c6b-5a49-4382-9170-6f5e4d3c2b1a",
+  "message_type": "command_result",
+  "station_id": "station-sim-01",
+  "source_timestamp": "2026-10-14T18:10:00Z",
+  "payload": {
+    "command_id": "5a4b3c2d-1e0f-4a9b-8c7d-6e5f4a3b2c1d",
+    "state": "failed",
+    "applied_fps": null,
+    "detail": "command expired before it was received; not applied"
+  }
+}

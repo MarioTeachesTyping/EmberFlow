@@ -1,0 +1,14 @@
+{
+  "schema_version": "0.1",
+  "event_id": "8b6c1f44-2e0a-4c5d-8f3e-7a9b0c1d2e3f",
+  "message_type": "detection",
+  "station_id": "station-sim-01",
+  "source_timestamp": "2026-10-14T18:00:01.250Z",
+  "payload": {
+    "prediction": "smoke",
+    "confidence": 0.82,
+    "model_version": "example-model-0.0.0",
+    "inference_latency_ms": 91.0,
+    "snapshot_ref": null
+  }
+}

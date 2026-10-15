@@ -1,0 +1,85 @@
+# ---------------------------------------------------------------------------
+# Secrets and local configuration — never commit these
+# ---------------------------------------------------------------------------
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.crt
+*.p12
+*.pfx
+id_rsa*
+id_ed25519*
+credentials*.json
+secrets/
+
+# ---------------------------------------------------------------------------
+# Python
+# ---------------------------------------------------------------------------
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+build/
+dist/
+.venv/
+venv/
+.python-version
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.coverage
+coverage.xml
+htmlcov/
+
+# ---------------------------------------------------------------------------
+# Node / dashboard
+# ---------------------------------------------------------------------------
+node_modules/
+dashboard/frontend/dist/
+dashboard/frontend/build/
+*.tsbuildinfo
+.eslintcache
+npm-debug.log*
+yarn-error.log*
+
+# ---------------------------------------------------------------------------
+# Large or generated artifacts (see CONTRIBUTING.md "Large files")
+# Store these externally and document the download path instead.
+# ---------------------------------------------------------------------------
+# Model weights
+*.pt
+*.pth
+*.onnx
+*.tflite
+*.engine
+*.h5
+*.ckpt
+*.safetensors
+*.hef
+*.ncnn.bin
+# Video and image datasets
+*.mp4
+*.avi
+*.mov
+*.mkv
+datasets/
+ml/training/data/
+# Edge offline buffer databases
+*.sqlite
+*.sqlite3
+*.db
+# Bulk experiment output (keep only the placeholder README)
+experiments/results/*
+!experiments/results/README.md
+
+# ---------------------------------------------------------------------------
+# OS / editor
+# ---------------------------------------------------------------------------
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/*
+!.vscode/extensions.json
+*.swp

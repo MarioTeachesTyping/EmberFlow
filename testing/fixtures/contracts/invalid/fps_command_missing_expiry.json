@@ -1,0 +1,13 @@
+{
+  "schema_version": "0.1",
+  "event_id": "c1d2e3f4-a5b6-4c7d-8e9f-0a1b2c3d4e5f",
+  "message_type": "fps_command",
+  "station_id": "station-sim-01",
+  "source_timestamp": "2026-10-14T18:05:00Z",
+  "payload": {
+    "command_id": "5a4b3c2d-1e0f-4a9b-8c7d-6e5f4a3b2c1d",
+    "requested_fps": 5,
+    "created_at": "2026-10-14T18:05:00Z",
+    "policy_reason": "EXAMPLE ONLY"
+  }
+}
