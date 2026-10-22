@@ -1,0 +1,10 @@
+{
+  "mcpServers": {
+    "codegraph": {
+      "type": "stdio",
+      "command": "codegraph",
+      "args": ["serve", "--mcp", "--path", "REPLACE_WITH_ABSOLUTE_EMBERFLOW_PATH"],
+      "env": { "CODEGRAPH_TELEMETRY": "0" }
+    }
+  }
+}

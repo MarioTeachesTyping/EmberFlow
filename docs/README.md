@@ -5,6 +5,7 @@ ownership, implementation locations, the v1.1 alignment decision and remaining r
 
 | Document | Purpose | Status |
 |---|---|---|
+| [tooling/codegraph.md](tooling/codegraph.md) | Preferred optional coding navigator; mixed-agent setup and validation | CLI/MCP smoke-tested locally on Windows |
 | [tooling/graphify.md](tooling/graphify.md) | Optional Graphify install, scope, agent workflow and validation | Local code graph tested; semantic backend not selected |
 | [specifications/v1.1/](specifications/v1.1/README.md) | Revised edge, roles, and system specifications; PDF, Word, Markdown, diagrams | Review drafts — October 22, 2026 |
 | [architecture/overview.md](architecture/overview.md) | Layers, responsibilities, data flows, open architectural decisions | Draft |

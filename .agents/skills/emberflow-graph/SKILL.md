@@ -5,6 +5,9 @@ description: Build or query EmberFlow's optional Graphify index when exploring p
 
 # EmberFlow graph navigation
 
+For code structure/callers/change impact, prefer the optional emberflow-codegraph skill.
+Use this Graphify workflow for broader document relationships when its semantic backend is configured.
+
 Read the root AGENTS.md and docs/PROJECT_REFERENCE.md first. Then read
 docs/tooling/graphify.md for the pinned installation, build commands and limitations.
 

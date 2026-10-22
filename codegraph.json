@@ -1,0 +1,10 @@
+{
+  "exclude": [
+    ".agents/",
+    ".codegraph/",
+    "graphify-out/",
+    ".venv-graphify/",
+    "docs/reviews/*-file-coverage.json",
+    "docs/reviews/*-audit-validation.json"
+  ]
+}

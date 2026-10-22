@@ -1,0 +1,6 @@
+# Merge this server entry into your own configuration. Do not replace the whole file.
+# Replace the placeholder with your absolute EmberFlow checkout path.
+[mcp_servers.codegraph]
+command = "codegraph"
+args = ["serve", "--mcp", "--path", "REPLACE_WITH_ABSOLUTE_EMBERFLOW_PATH"]
+env = { CODEGRAPH_TELEMETRY = "0" }
