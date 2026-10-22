@@ -87,6 +87,12 @@ contract revision. See [contract gaps](api/contracts.md#7-gaps-before-v11-integr
 
 ## Working and verifying changes
 
+Optional relationship search: use [Graphify](tooling/graphify.md) and the project
+`emberflow-graph` skill after reading this reference. Keep source review authoritative and fall
+back to ordinary file search if the tool/index is absent or stale. Code-only graphs omit document
+meaning; semantic document indexing needs an explicitly configured model backend. Graphify is
+developer tooling, not a runtime dependency or a requirement for contributing.
+
 Follow [CONTRIBUTING.md](../CONTRIBUTING.md) for branches, reviews, interface ownership,
 and publishing. Work through pull requests to `main`. Keep secrets, model weights, datasets,
 videos, edge databases, and bulk experiment results out of Git.
