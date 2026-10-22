@@ -1,5 +1,9 @@
 # Graphify for project navigation
 
+For daily coding, start with [CodeGraph](codegraph.md). Graphify remains optional for broader
+document relationships; no uninstall is required. The original Graphify smoke-test record
+describes that integration's earlier source revision, not the current complete repository.
+
 Graphify is optional developer tooling alongside the root agent entry point and
 [project reference](../PROJECT_REFERENCE.md). It does not run on the Pi, controller or dashboard,
 change requirements, prove implementation, or replace source review. Version 0.9.93 is pinned
