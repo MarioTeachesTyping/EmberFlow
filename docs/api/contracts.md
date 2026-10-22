@@ -1,10 +1,11 @@
 # Interface contracts
 
-> **PROPOSAL v0. Not yet approved.** This defines the *planned* edge event envelope, message
+> **LEGACY PROPOSAL v0. Not approved; incomplete for v1.1.** This defines the *planned* edge event envelope, message
 > payloads, FPS command lifecycle, durable acknowledgment and REST endpoints. Nothing here is
 > implemented. Changes require the reviewers listed in
 > [CONTRIBUTING.md § Cross-subsystem changes](../../CONTRIBUTING.md#cross-subsystem-changes).
 
+- **Integration warning:** v0 fixtures validate the old shape only; see [required gaps](#7-gaps-before-v11-integration). Do not treat a metadata ack as complete image receipt.
 - **Machine-readable schema:** [`schemas/edge-messages.v0.schema.json`](schemas/edge-messages.v0.schema.json) (JSON Schema 2020-12)
 - **Example messages:** `testing/fixtures/contracts/valid/` and `.../invalid/`, checked by
   `testing/unit/test_edge_message_schema.py`
@@ -66,7 +67,7 @@ wire format.
 | `confidence` | number 0–1 | |
 | `model_version` | string | |
 | `inference_latency_ms` | number ≥ 0 | |
-| `snapshot_ref` | string \| null | **OPEN:** review imagery and offline snapshot handling |
+| `snapshot_ref` | string \| null | Legacy v0 allows missing/null; v1.1 requires representative-image evidence. This field does not encode that full contract. |
 
 ### 3.3 `fps_command` (controller → station)
 
@@ -91,7 +92,7 @@ The target station is the envelope's `station_id`.
 
 ### 3.5 `ack`: durable acknowledgment (controller → station)
 
-Sent **only after** the referenced records are committed to the database.
+Legacy v0 metadata receipt, sent after referenced records are committed to the database. It cannot by itself establish v1.1 metadata-plus-image completion.
 
 ```json
 {
@@ -104,8 +105,8 @@ Sent **only after** the referenced records are committed to the database.
 
 | `status` | Meaning | Station action |
 |---|---|---|
-| `stored` | Newly committed | Remove from buffer |
-| `duplicate` | Already stored earlier (replay) | Remove from buffer |
+| `stored` | Metadata newly committed | Legacy metadata receipt only; retain detection evidence pending complete image receipt |
+| `duplicate` | Metadata stored earlier (replay) | Do not infer the image is complete; require complete evidence receipt |
 | `rejected` | Invalid; will never be accepted | Move to a dead-letter area and log it; do not retry forever |
 
 If a station hears nothing back, it keeps the record and retries. Retrying is safe because of
@@ -181,3 +182,32 @@ network). Record the decision in an ADR before exposing the API beyond that netw
    and the example messages together.
 2. Bump `schema_version` for any breaking change.
 3. Get approval from the reviewers in CONTRIBUTING.md.
+
+## 7. Gaps before v1.1 integration
+
+The schema, fixtures and enum remain Proposal v0; this sweep changes descriptions, not validation
+rules. In particular, the old `model_switch` invalid fixture means "not a v0 message type," not
+"model switching is out of project scope." A null-image valid fixture is legacy shape coverage,
+not valid acceptance evidence for the revised system.
+
+R1/R2/R3/R4/R5 must agree and version the following before a production integration contract:
+
+| Gap | Required direction / source | Still to design |
+|---|---|---|
+| Registration/liveness | SRS FR-1.1–FR-1.3; SI-1.8; R2-FR-2.2 | Registration payload/transport, station/session/sequence, freshness and clock validity; no v0 heartbeat or registration message exists |
+| Frame/model input/output | SI-1.6; FR-2.3; DR-1.2 | Frame ID, shape/layout/color order, preprocessing owner, runtime/dependencies, error and latency semantics |
+| Detection image | SI-1.7; FR-7.2–FR-7.7; DR-1.7 | Image ID/event binding, encoding, byte count/integrity, upload transport, partial/restart handling, complete durable receipt |
+| Capacity/telemetry | DR-1.3; R2-FR-6.7; R2-IF-04 | Storage/backlog/clock status and units; quota/reserve/admission/retention profile |
+| Trust/model lifecycle | FR-3.5–FR-3.7; FR-6.1–FR-6.6 | Quality/change/disagreement outputs, paired candidate results, deployments, approval and rollback records |
+| Non-FPS commands | FR-5.2–FR-5.5 | Resolution/model/worker/movement contracts, accessible source and correlated outcomes |
+| Operator/configuration API | UI-1.3–UI-1.5; NFR-4.1–NFR-4.3 | Identified operator access, authorization, validation, configuration/model routes and audit |
+
+An accepted local event needs persisted metadata and a recoverable image association. Central
+ingestion can stage the parts separately, but exposes incomplete state until both are durable
+and jointly retrievable. Receipt covers the whole evidence unit. Retries after lost receipts are
+safe; local cleanup follows the selected post-receipt retention policy. A broker receipt, existing
+event ID or HTTP success for metadata alone does not meet this requirement.
+
+Retain transport independence while MQTT/NATS and image transfer remain open. Contract revisions
+must update schemas and valid/invalid fixtures together and follow the reviewers in CONTRIBUTING.
+These planning requirements do not silently add new fields to the existing v0 wire format.

@@ -1,0 +1,50 @@
+{
+  "date": "2026-10-22",
+  "status": "document checks passed; no hardware or software implementation tests claimed",
+  "documents": [
+    {
+      "file": "EmberFlow_Tomiwa_Edge_Subsystem_Specification_v1_1",
+      "pdf_pages": 23,
+      "original_ids_preserved": 76,
+      "unknown_test_references": 0,
+      "horizontal_overflow_pages": 0,
+      "empty_pages": 0,
+      "title_border_removed": true
+    },
+    {
+      "file": "EmberFlow_Roles_and_Requirements_Specification_v1_1",
+      "pdf_pages": 13,
+      "original_ids_preserved": 47,
+      "unknown_test_references": 0,
+      "horizontal_overflow_pages": 0,
+      "empty_pages": 0,
+      "title_border_removed": true
+    },
+    {
+      "file": "EmberFlow_Senior_Design_SRS_v1_1",
+      "pdf_pages": 24,
+      "original_ids_preserved": 90,
+      "unknown_test_references": 0,
+      "horizontal_overflow_pages": 0,
+      "empty_pages": 0,
+      "title_border_removed": true
+    }
+  ],
+  "originals_unchanged": [
+    {
+      "source": "S1",
+      "path": "C:\\Users\\gokug\\Downloads\\EmberFlow_Senior_Design_SRS (1).pdf",
+      "sha256": "2881d0ef0bba1aaa480a6a6a006363cca2b04b2866c0edbb553d96c6687dc079"
+    },
+    {
+      "source": "S2",
+      "path": "C:\\Users\\gokug\\Downloads\\EmberFlow_Role2_Edge_Computing_Subsystem_Specification.pdf",
+      "sha256": "7d2fa5980bbb13b6e5d2054a672f3fb46b1d5ca6d16084a5e4e01707c6e3f634"
+    },
+    {
+      "source": "S3",
+      "path": "C:\\Users\\gokug\\Downloads\\EmberFlow_Roles_and_Requirements_Specification (1).pdf",
+      "sha256": "4f6c5f692571078949a05aa1d243b99ac06b41ab75d63c3333f1a24cd3ead0d0"
+    }
+  ]
+}

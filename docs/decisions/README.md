@@ -1,48 +1,58 @@
 # Decision register and ADRs
 
-Architecture Decision Records (ADRs) capture **why** a choice was made. Status values:
-`Proposed` → `Accepted` → (`Superseded` | `Deprecated`). An `Open` entry has not been decided.
+ADRs capture decisions and their authority. `Accepted` records from the initial repository are
+preserved. [ADR 0007](0007-october-22-review-baseline.md) records Tomiwa's October 22 revision
+direction and repository alignment; full-team/faculty ratification of that revision is pending.
+Do not turn that status into team approval or treat remaining technical details as settled.
 
-To add an ADR, copy [`0000-template.md`](0000-template.md) to `NNNN-short-title.md`, open a
-`docs(decisions)` PR, and get approval from the owners of the subsystems it affects.
-
-## Accepted
+## Existing accepted records
 
 | ADR | Decision |
 |---|---|
-| [0001](0001-edge-hardware.md) | Exactly three Raspberry Pi 5 devices; no Jetson |
+| [0001](0001-edge-hardware.md) | Three Raspberry Pi 5 stations; no Jetson requirement |
 | [0002](0002-central-database.md) | PostgreSQL with TimescaleDB |
-| [0003](0003-central-services-stack.md) | Python/FastAPI controller; React + TypeScript dashboard |
+| [0003](0003-central-services-stack.md) | FastAPI controller; React + TypeScript dashboard |
 
-## Open decision register
+## Revision baseline recorded for review
 
-Target dates are **intentionally blank**. The team must fill them in before EF-SRS-001 can be
-baselined.
+[0007](0007-october-22-review-baseline.md) records indoor/no-PCB hardware, USB webcam, wired LAN,
+existing host, required offline image evidence and restoration of the original required system
+scope. These directions are recorded; exact parts, implementations and numerical limits below
+remain open. Use the current SRS in [the requirements index](../requirements/EF-SRS-001.md).
 
-| Decision | Current state | Suggested owner(s) | Target date | ADR |
+## SRS open decisions and closure gates
+
+`SRS OD n` refers to section 13 of the v1.1 SRS. These are document identifiers, not fabricated
+Jira keys. Target dates remain TBD until agreed; the closure gates prevent qualification against
+undefined targets.
+
+| SRS item | Still to decide / record | Owners | Closure gate | Related record |
 |---|---|---|---|---|
-| Messaging: MQTT vs NATS | **OPEN**: compare reliability, reconnection/duplicate handling, setup effort | Gabe | _TBD_ | [0004](0004-messaging.md) |
-| Edge buffer implementation | **Proposed**: SQLite suggested; define persistence and acknowledgments | Tomiwa with Gabe | _TBD_ | [0005](0005-edge-offline-buffer.md) |
-| Offline alert snapshots | **OPEN**: the dashboard needs review imagery, but buffers that only store records could miss frames captured while offline | Tomiwa, Gabe, Ethan | _TBD_ | _not yet written_ |
-| ML baseline and dataset | **OPEN**: lightweight pretrained candidates; evaluate Pi 5 performance | Diego | _TBD_ | [0006](0006-ml-baseline.md) |
-| FPS thresholds and evaluation | **OPEN**: benchmark on actual hardware | Gabe, Tomiwa, Dylan | _TBD_ | _not yet written_ |
-| Redis | **Not required**: consider only if a measured performance need arises | Ethan | — | — |
-| Database migration tool | **OPEN**: e.g. Alembic or plain SQL | Ethan | _TBD_ | _not yet written_ |
-| Dashboard build tooling | **OPEN**: e.g. Vite | Ethan | _TBD_ | _not yet written_ |
-| Project license | **OPEN**: no license is added until the team chooses | Team | _TBD_ | — |
+| OD 1 | Pi RAM/storage, supply/cables/cooling, exact USB camera and available equipment | Tomiwa, Diego, Anthony | Before procurement | [0001](0001-edge-hardware.md), [0007](0007-october-22-review-baseline.md) |
+| OD 2 | MQTT vs NATS, image transfer, routes, access and complete durable-receipt semantics | James, Tomiwa, Anthony; Ethan for image persistence | Before integration contract freeze | [0004](0004-messaging.md), [contract gaps](../api/contracts.md#7-gaps-before-v11-integration) |
+| OD 3 | Database/extension versions, image persistence and migration configuration | Ethan, James | Before durable-ingestion tests | [0002](0002-central-database.md) |
+| OD 4 | Primary/alternative artifacts, Pi runtime, dependencies, preprocessing and dataset split | Diego, Tomiwa | Before platform qualification | [0006](0006-ml-baseline.md) |
+| OD 5 | Quality/input-change/disagreement methods and evaluation inputs | Diego, Dylan | Before trust-monitoring tests | SRS FR-3.5–FR-3.7 |
+| OD 6 | Numerical capture/performance, thermal, liveness, recovery and test-duration profile | Tomiwa, Diego, James, Dylan | Before qualification | SRS NFR-2.5 |
+| OD 7 | Workload movement with a destination-accessible source; no assumed USB failover | James, Tomiwa, Dylan | Before migration test | SRS FR-5.4 |
+| OD 8 | Total budget/funding, BOM, inventory, quotes/tax/shipping and lead times | Anthony and team, Tomiwa | Before any purchase | No budget or purchase established |
+| OD 9 | Image format/integrity/size, outbox choice, quotas/reserve, capacity envelope, retention, failures | Tomiwa, James, Ethan | Before outage acceptance | [0005](0005-edge-offline-buffer.md) |
+| OD 10 | Existing host identity/OS, Ethernet adapter/switch, addressing, ports and startup | James, Ethan, Anthony, Tomiwa | Before three-station integration | [Deployment](../architecture/deployment.md) |
 
-### OD-1 through OD-7
+Additional repository choices: dashboard build/test tooling (Ethan), migration tool (Ethan),
+operator authentication/authorization and command validation (James/Ethan with R1/R2), and
+project license (team). Redis is optional and needs evidence before adoption. These choices
+need recorded owners/dates before their dependent work; no new defaults are supplied here.
 
-The official Jira open-decision items **OD-1 … OD-7** still need to be matched up with their
-exact IDs, owners and target dates. Their official meanings are **not** restated here, so that
-nothing is made up. Fill this table in from Jira:
+## Jira references and source differences
 
-| Jira ID | Title (from Jira) | Owner | Target date | Maps to row above |
-|---|---|---|---|---|
-| OD-1 | | | | |
-| OD-2 | | | | |
-| OD-3 | | | | |
-| OD-4 | | | | |
-| OD-5 | | | | |
-| OD-6 | | | | |
-| OD-7 | | | | |
+The October 22 report snapshot identifies [SCRUM-15](https://emberflowsd.atlassian.net/browse/SCRUM-15)
+as messaging/OD-2 and [SCRUM-17](https://emberflowsd.atlassian.net/browse/SCRUM-17) as database/OD-3.
+It contains both older backend comparison language and Ethan's statement that PostgreSQL with
+TimescaleDB was agreed. ADR 0002 preserves the repository's accepted selection; confirm actual
+configuration with Ethan/James. Do not invent mappings for other SRS OD labels or claim current
+Jira status from dated reports. Read the live board when planning work.
+
+To add an ADR, use [0000-template.md](0000-template.md), cite its evidence/authority, and obtain
+the relevant owners' review through the contribution workflow. Reconcile future scope changes
+with the SRS and requirements crosswalk together.

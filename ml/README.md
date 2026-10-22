@@ -10,7 +10,8 @@ Smoke-detection models, inference wrappers used by the edge agent, and evaluatio
 - `models/` — model cards / download instructions (no weights in Git)
 - `training/` — fine-tuning scripts for pretrained starting points
 - `inference/` — common inference interface returning prediction, confidence, model version, latency
-- `evaluation/` — precision, recall, F1, false-alert rate, edge performance, degraded-image evaluation
+- `evaluation/` — detection metrics, edge performance, image/input-change/disagreement methods, candidate comparison
+- Model/runtime selection remains open; lightweight YOLO-family and FIgLib are researched candidates, not selected artifacts (ADR 0006)
 
 ## Boundaries
 

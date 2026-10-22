@@ -1,0 +1,11 @@
+flowchart LR
+  CAM[One USB webcam initially] --> N1[Physical Pi 5 station 001]
+  V2[Local recorded footage] --> N2[Physical Pi 5 station 002]
+  V3[Local recorded footage] --> N3[Physical Pi 5 station 003]
+  N1 <-->|Ethernet| NET[Local wired switch or router]
+  N2 <-->|Ethernet| NET
+  N3 <-->|Ethernet| NET
+  NET <-->|Ethernet| HOST[Existing team laptop or desktop]
+  HOST --- CTRL[Controller and messaging]
+  HOST --- DB[Database and image storage]
+  HOST --- UI[Dashboard services]

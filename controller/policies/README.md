@@ -1,14 +1,17 @@
 # Adaptation policies
 
-**Owner:** R4 — Gabe  
+**Owner:** R4 — James Connolly
+
 **Status:** Not implemented — scaffold only.
 
-Evaluates resource telemetry over a stable observation window and decides when to issue an FPS reduction command.
+Evaluates resource and image/model trust signals and coordinates documented adaptation. FPS reduction is the first policy slice, not the only required recovery capability.
 
 ## Planned contents
 
 - Configurable triggers: sustained temperature, sustained latency, or another approved condition
 - Cooldown/hysteresis to prevent oscillation
+- Resolution/model changes and workload movement using a source accessible to the receiving node
+- Limits/methods and outcome criteria frozen with R2/R3/R6 before acceptance
 
 ## Boundaries
 

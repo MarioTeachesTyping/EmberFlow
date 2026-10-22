@@ -1,6 +1,7 @@
 # Central controller (FastAPI)
 
-**Owner:** R4 — Gabe  
+**Owner:** R4 — James Connolly
+
 **Status:** Not implemented — scaffold only.
 
 Single FastAPI application that coordinates the stations. Prefer modules inside this one app over separate microservices.
@@ -9,8 +10,8 @@ Single FastAPI application that coordinates the stations. Prefer modules inside 
 
 - `api/` — REST endpoints for the dashboard and station registration
 - `messaging/` — broker client and ingestion (MQTT vs NATS OPEN)
-- `policies/` — FPS adaptation policy evaluation
-- `recovery/` — FPS command lifecycle, verification, replay acknowledgment
+- `policies/` — resource/trust policy, FPS/resolution/model choices and workload coordination
+- `recovery/` — command verification, candidate/limited deployment, rollback, workload outcomes and complete evidence receipt
 
 ## Boundaries
 

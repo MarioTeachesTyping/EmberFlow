@@ -1,7 +1,7 @@
 # Testing
 
 **Owner:** R6 — Dylan  
-**Status:** Not implemented — scaffold only.
+**Status:** Legacy v0 schema/fixture tests exist; subsystem, integration, fault and hardware suites are planned.
 
 Shared test suites, fault injection and fixtures. Subsystem owners remain responsible for tests of their own code.
 

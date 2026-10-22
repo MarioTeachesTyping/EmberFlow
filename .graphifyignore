@@ -1,0 +1,32 @@
+# Index the current Markdown sources, code, schemas and configuration.
+# Do not index duplicate exports, generated provenance records, or media.
+*.pdf
+*.docx
+*.xlsx
+*.pptx
+*.png
+*.jpg
+*.jpeg
+*.svg
+*.mp4
+*.avi
+*.mov
+*.mkv
+.git/
+.agents/
+.venv/
+.venv-graphify/
+venv/
+node_modules/
+__pycache__/
+graphify-out/
+build/
+dist/
+datasets/
+experiments/results/
+docs/reviews/*-file-coverage.json
+docs/reviews/*-audit-validation.json
+docs/specifications/v1.1/Validation_Record.json
+.env
+.env.*
+!.env.example
