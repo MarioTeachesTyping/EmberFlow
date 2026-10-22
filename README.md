@@ -159,6 +159,9 @@ prerecorded video on a laptop; physical Pis should only be needed for hardware a
 
 ## Tests and CI
 
+Optional agent navigation: [Graphify setup and limits](docs/tooling/graphify.md). It complements
+the project reference and runs in a separate developer environment; it is not required by CI.
+
 GitHub Actions ([`.github/workflows/ci.yml`](.github/workflows/ci.yml)) runs Ruff lint, Ruff
 format check and pytest on every PR and on pushes to `main`. Dashboard lint/typecheck/test/build
 steps turn on automatically once `dashboard/frontend/package.json` and its lockfile exist. See

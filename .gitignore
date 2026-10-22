@@ -24,10 +24,12 @@ __pycache__/
 build/
 dist/
 .venv/
+.venv-graphify/
 venv/
 .python-version
 .pytest_cache/
 .ruff_cache/
+graphify-out/
 .mypy_cache/
 .coverage
 coverage.xml
