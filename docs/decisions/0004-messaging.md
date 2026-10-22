@@ -2,7 +2,7 @@
 
 - **Status:** **OPEN** (not decided)
 - **Date:** _TBD_
-- **Owner:** R4 (Gabe)
+- **Owner:** R4 (James)
 - **Reviewers:** R2 (Tomiwa), R1 (Anthony), R6 (Dylan)
 
 ## Context

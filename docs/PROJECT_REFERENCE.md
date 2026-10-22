@@ -33,7 +33,7 @@ they are not repository dependencies. The original v1.0 PDFs are not included in
 ## Baseline in Tomiwa's v1.1 revision
 
 - Three physical Raspberry Pi 5 stations for an indoor demonstration; no custom PCB required.
-- One USB webcam initially, with camera support verified on each Pi; prerecorded input on the
+- One USB webcam initially, with camera support to be verified on each Pi; prerecorded input on the
   other stations. A common platform lets teammates integrate their algorithms.
 - An existing team laptop/desktop runs central services. Wired Ethernet connects the three
   Pis and host through a switch/router with at least four endpoint ports.
@@ -49,26 +49,23 @@ Existing accepted ADRs specify [Pi 5 hardware](decisions/0001-edge-hardware.md),
 Consult the [decision register](decisions/README.md) before selecting an open technology.
 Historical Jetson/TensorRT alternatives do not establish a Pi runtime dependency.
 
-## Unresolved differences between drafts
+## Alignment decision and remaining approval
 
-The October 14 architecture handoff described by the existing repository produced a narrower
-MVP. Its [SRS draft](requirements/EF-SRS-001.md), [architecture](architecture/overview.md),
-and [root README](../README.md) classify several capabilities differently from v1.1.
-Importing v1.1 does not silently reconcile or approve those differences.
+During the October 22 repository sweep, Tomiwa chose the v1.1 SRS scope and authorized aligning
+the repository while keeping full-team approval pending. [ADR 0007](decisions/0007-october-22-review-baseline.md)
+records that authority. Planning documents now retain trust monitoring, shadow/candidate/limited
+rollout/rollback, resolution/model control and workload movement as required. The older reduced
+MVP/stretch split is historical, not an alternative current instruction.
 
-| Topic | Existing repository drafts | October 22 v1.1 review drafts |
-|---|---|---|
-| Image/model trust monitoring, shadow/candidate/canary/rollback, workload migration | Several are stretch goals | Retained within the original required scope |
-| Offline detection images | Open decision | One representative image retained with each event |
-| Physical network and initial cameras | Layout and hardware details open | Wired Ethernet; one USB webcam shared for verification |
-| Requirement identifiers | Provisional `EF-*` identifiers with original mappings TBD | Original document namespaces retained with traceability |
-| Controller owner's name | Gabe | James Connolly (Gabe/Gabriel in team/Jira references) |
+The [requirements index](requirements/EF-SRS-001.md) preserves legacy `EF-*` references without
+maintaining a second competing SRS. The [audit](reviews/2026-10-22-repository-audit.md) records
+changes, source conflicts, full-file coverage and remaining work. It highlights the legacy
+v0 schema's image/session/command gaps and the need for team/faculty ratification.
 
-For document-review tasks, cite the version and namespace being reviewed. For implementation
-that depends on these differences, surface the conflict to Anthony and the affected owners;
-record their agreed resolution in the decision register and update the affected drafts together.
-Do not infer a requirement mapping, demote an original requirement, or claim team approval
-because one document is newer. Compatible work can continue without resolving unrelated items.
+Do not treat Tomiwa's revision direction as team approval, select open technologies, or claim
+implementation from these documents. Later scope changes need an explicit decision and aligned
+SRS, ADRs, contracts, tests and ownership. See the [decision register](decisions/README.md) for
+all ten SRS open items, closure gates and known dated Jira references.
 
 ## Owners and repository locations
 
@@ -84,8 +81,9 @@ because one document is newer. Compatible work can continue without resolving un
 Subsystem READMEs explain boundaries and planned contents; directory existence does not prove
 implementation. See [deployment](architecture/deployment.md) for service placement,
 [API contracts](api/contracts.md) and [schemas](api/schemas/) for the current Proposal v0,
-and the [test plan](testing/test-plan.md) for verification work. Proposed schemas may need
-review against v1.1 before integration; this document import does not change their payloads.
+and the [test plan](testing/test-plan.md) for verification work. The legacy v0 schema is
+incomplete for v1.1; its validation rules and fixtures are preserved pending a jointly reviewed
+contract revision. See [contract gaps](api/contracts.md#7-gaps-before-v11-integration).
 
 ## Working and verifying changes
 

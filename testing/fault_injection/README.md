@@ -8,7 +8,9 @@ Repeatable scripts to create the failure conditions in the test plan.
 ## Planned contents
 
 - Network disconnect/reconnect, broker restart, controller restart
-- Induced CPU/thermal load and latency to trigger FPS adaptation
+- Controlled CPU/thermal load or injected readings, latency, camera loss and storage pressure
+- Partial images, lost receipts, replay after restart, node failure and faulty candidate deployment
+- Degraded-image, input-change and disagreement cases supplied with R3; distinguish physical from simulated faults
 
 ## Boundaries
 

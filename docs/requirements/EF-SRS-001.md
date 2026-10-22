@@ -1,108 +1,100 @@
-# EF-SRS-001: EmberFlow Software Requirements Specification
+# EF-SRS-001: current requirements and legacy identifiers
 
-| | |
+**Current review baseline:** [full system SRS v1.1](../specifications/v1.1/EmberFlow_Senior_Design_SRS_v1_1.md),
+October 22, 2026. Read that document for the complete shall requirements, traceability,
+acceptance gates and test procedures. This file is its repository index and legacy-ID crosswalk.
+
+Tomiwa approved aligning repository planning to v1.1 on October 22. Full-team/faculty ratification
+is pending. The October 14 reduced MVP draft formerly at this path is preserved in Git history
+at commit `acb7769`. Its `EF-*` identifiers are retained below for existing references; they do
+not replace the original SRS identifiers or establish a narrower acceptance scope.
+
+## Scope and acceptance
+
+Three physical Pi 5 stations, one USB webcam verified on each, replay on the other stations,
+an existing central host, wired Ethernet, indoor mains-powered demonstration and no custom PCB
+form the physical baseline. Offline evidence requires metadata plus one representative image
+per accepted event and retained telemetry under a bounded policy. Metadata-only storage is
+not complete synchronization.
+
+Image quality/input change/disagreement, candidate comparison, limited rollout, known-good
+rollback, resolution/model controls and workload movement remain required. AC-4's three-mechanism
+demonstration does not waive other mandatory requirements. All individual requirements and
+AC-1 through AC-12 need evidence. A physical camera cannot move between Pis with its workload;
+the receiving node needs an accessible source.
+
+## Legacy functional identifier crosswalk
+
+These are reviewed topical links, not claims of exact semantic equivalence. The original
+requirement text controls; proposal-only details are identified explicitly.
+
+| Legacy ID | v1.1 SRS references | Relationship / clarification |
+|---|---|---|
+| EF-FR-01 | FR-1.1; HI-1.3 | Three physical stations |
+| EF-FR-02 | FR-2.1; HI-1.1, HI-1.8 | USB camera/replay, one webcam tested across all three |
+| EF-FR-03 | FR-2.2 | Local inference |
+| EF-FR-04 | FR-2.4; FR-5.3 | Two model configurations; primary/lightweight plan also in ML ADR 0006 |
+| EF-FR-05 | FR-2.3; SI-1.6 | Inference outputs plus frame/time association and preprocessing contract |
+| EF-FR-06 | FR-3.1–FR-3.4; DR-1.3 | Telemetry; R2 specification adds CPU, storage and backlog details |
+| EF-FR-07 | FR-1.1 | Registration/identity; detailed registration fields in R2-FR-2.2 |
+| EF-FR-08 | FR-7.3; SI-1.7; DR-1.2–DR-1.3 | Ingestion must retain metadata and image completion semantics |
+| EF-FR-09 | FR-1.2–FR-1.3; NFR-5.3 | Liveness, health and freshness |
+| EF-FR-10 | SI-1.1; SI-1.5 | Documented APIs; exact routes remain proposals |
+| EF-FR-11 | UI-1.1; NFR-5.3 | Normal, degraded, offline and recovering display |
+| EF-FR-12 | UI-1.2; FR-4.2 | Includes representative image, including after outage |
+| EF-FR-13 | FR-4.1–FR-4.3 | Human review |
+| EF-FR-14 | UI-1.2; UI-1.5 | History and audit |
+| EF-FR-15 | SI-1.3 | Existing ADR 0002 selects PostgreSQL with TimescaleDB |
+| EF-FR-16 | FR-7.3; SI-1.8; DR-1.3 | Preserve identity/time; distinguish source, session and receipt |
+| EF-FR-17 | FR-7.1; NFR-1.1 | Offline inference with an available local source |
+| EF-FR-18 | FR-7.2–FR-7.7; NFR-1.2 | Bounded durable evidence, safe retransmission, one logical event |
+| EF-FR-19 | FR-5.1 | FPS reduction; no longer the sole required mechanism |
+| EF-FR-20 | FR-5.5; NFR-2.4; NFR-5.2 | Trigger/action/outcome evidence; named lifecycle states remain proposed |
+| EF-FR-21 | FR-5.1; R2 specification R2-IF-02 | Legacy expiry/cooldown controls retained as protocol proposals; not an exact SRS equivalence |
+
+## Legacy nonfunctional identifiers
+
+| Legacy ID | Current references | Clarification |
+|---|---|---|
+| EF-NFR-01 | NFR-6.1, NFR-6.3 | Reproducibility |
+| EF-NFR-02 | FR-9.5 | Detection metrics, with broader system metrics retained |
+| EF-NFR-03 | NFR-2.1–NFR-2.2 | Pi performance measurements |
+| EF-NFR-04 | FR-9.2; FR-3.5–FR-3.7 | Degraded-input evaluation plus required trust methods |
+| EF-NFR-05 | NFR-2.5; NFR-2.4 | Freeze measured acceptance profile before qualification |
+| EF-NFR-06 | NFR-3.4; AC-11 | Simulated development plus physical-platform reproduction/handoff |
+| EF-NFR-07 | NFR-4.2; CONTRIBUTING large-file rules | Secrets and repository artifact limits |
+| EF-NFR-08 | FR-9.4 | Fixed vs temperature-threshold vs full EmberFlow |
+| EF-NFR-09 | HI-1.9; SRS OD 8 | Existing central computer; budget/funding unset, not a zero-cost promise |
+
+## Former stretch identifiers
+
+The earlier `EF-SG-*` labels are historical aliases. Their capabilities are required in the
+current review baseline; they are not optional because of those old labels.
+
+| Legacy ID | Current requirements |
 |---|---|
-| **Document status** | **DRAFT — PENDING APPROVAL** |
-| **Baseline** | Not baselined |
-| **Approvals required** | All six team members (R1–R6) |
-| **Precondition for baseline** | Decision register has owners and target dates for every open item |
+| EF-SG-01 | FR-3.5, FR-3.7 — quality/input-change methods |
+| EF-SG-02 | FR-5.2 — resolution control |
+| EF-SG-03 | FR-5.3 — approved model switch |
+| EF-SG-04 | FR-3.6; FR-6.2–FR-6.3 — disagreement/shadow comparison |
+| EF-SG-05 | FR-6.5 — limited rollout |
+| EF-SG-06 | FR-6.6; NFR-1.4 — known-good rollback |
+| EF-SG-07 | FR-5.4 — workload movement with accessible input |
 
-> This draft was updated to match the architecture handoff dated 14 October 2026. That
-> handoff reflects the Early Status Report MVP, the three-Pi-5 decision, PostgreSQL +
-> TimescaleDB, and required FPS adaptation.
->
-> **Requirement IDs below are provisional (`EF-*`).** The original SRS functional requirement
-> IDs must be mapped to them **individually** by the team, using the "Original FR" column. That
-> mapping was not available when this draft was written and has not been made up.
+## Approval and outstanding work
 
-## 1. Purpose and scope
+The [decision register](../decisions/README.md) records remaining design decisions and closure
+gates. No date, cost, model, runtime or performance target is invented to fill an open item.
 
-EmberFlow is a budget-conscious, two-semester research prototype. It aims to show reliable
-wildfire smoke monitoring at the edge across changing device, network and visual conditions.
-Its contribution is the integration of local inference, health monitoring, offline continuity,
-human review and measured recovery. It is not a new smoke detector.
+| Role | Formal name | Review / approval |
+|---|---|---|
+| R1 | Anthony Terry | Pending |
+| R2 | Tomiwa Aluko | Revision direction and repository alignment approved October 22; full-system ratification not claimed |
+| R3 | Diego Mendoza | Pending |
+| R4 | James Connolly | Pending |
+| R5 | Ethan McKissic | Pending |
+| R6 | Dylan Mcintee | Pending |
 
-## 2. Functional requirements (required MVP)
-
-| ID | Requirement | Original FR | Owner | Evidence of completion | Review |
-|---|---|---|---|---|---|
-| EF-FR-01 | Three Raspberry Pi 5 stations take part in one integrated system. | TBD | R2 | Three-node demo log | ☐ |
-| EF-FR-02 | Each station processes a live camera stream **or** a prerecorded wildfire video. | TBD | R2 | Test run per source type | ☐ |
-| EF-FR-03 | Each station runs smoke inference **locally**. | TBD | R2/R3 | Edge inference logs | ☐ |
-| EF-FR-04 | The system provides one primary smoke-detection model and one lightweight/optimized alternative, starting from existing/pretrained architectures. | TBD | R3 | Model cards; benchmark report | ☐ |
-| EF-FR-05 | Every inference result exposes prediction, confidence, model version and inference latency. | TBD | R3 | Contract test | ☐ |
-| EF-FR-06 | Stations report telemetry: CPU, memory, temperature, inference latency, throughput/FPS, network status, camera status, active model version. | TBD | R2 | Contract test; DB records | ☐ |
-| EF-FR-07 | The controller supports station registration. | TBD | R4 | API/integration test | ☐ |
-| EF-FR-08 | The controller ingests telemetry and detection events. | TBD | R4 | Integration test | ☐ |
-| EF-FR-09 | The controller identifies stale or unhealthy stations and tracks health. | TBD | R4 | Fault-injection test | ☐ |
-| EF-FR-10 | The controller exposes API access to station, detection, telemetry and command data. | TBD | R4 | API tests | ☐ |
-| EF-FR-11 | The dashboard shows station status. | TBD | R5 | UI test / demo | ☐ |
-| EF-FR-12 | The dashboard shows potential smoke detections with confidence, time, station and model. | TBD | R5 | UI test / demo | ☐ |
-| EF-FR-13 | Operators can confirm or dismiss alerts. | TBD | R5 | UI + API test | ☐ |
-| EF-FR-14 | The dashboard shows relevant recent history. | TBD | R5 | UI test / demo | ☐ |
-| EF-FR-15 | Data is stored persistently in PostgreSQL, with TimescaleDB for telemetry. | TBD | R5 | Migration + integration test | ☐ |
-| EF-FR-16 | Event identifiers and source timestamps survive delayed delivery. | TBD | R2/R4/R5 | Replay test | ☐ |
-| EF-FR-17 | During connectivity loss, inference continues locally. | TBD | R2 | Fault-injection test | ☐ |
-| EF-FR-18 | During connectivity loss, detection and telemetry records are buffered durably and replayed on reconnection **with no duplicate accepted records**. | TBD | R2/R4 | Fault-injection test with dedup count | ☐ |
-| EF-FR-19 | The system automatically reduces inference processing FPS when a defined degraded-resource condition persists. | TBD | R4/R2 | FPS adaptation experiment | ☐ |
-| EF-FR-20 | For each FPS adaptation, the system records the initial condition, command, application and measured result (lifecycle: requested → accepted → applied → verified/failed or equivalent). | TBD | R4 | Command audit records | ☐ |
-| EF-FR-21 | FPS adaptation uses a cooldown/hysteresis rule and never applies expired commands. | TBD | R4/R2 | Fault-injection test | ☐ |
-
-## 3. Nonfunctional requirements
-
-| ID | Requirement | Owner | Evidence | Review |
-|---|---|---|---|---|
-| EF-NFR-01 | Reliability tests are reproducible (scripted setup, documented configs). | R6 | `experiments/` configs + scripts | ☐ |
-| EF-NFR-02 | ML evaluation reports precision, recall, F1 and false-alert rate for both model configurations. | R3 | Evaluation report | ☐ |
-| EF-NFR-03 | Edge inference performance (latency, throughput) is measured on Raspberry Pi 5. | R3/R2 | Benchmark report | ☐ |
-| EF-NFR-04 | Models are evaluated on a small, team-agreed set of degraded image inputs. | R3/R6 | Evaluation report | ☐ |
-| EF-NFR-05 | FPS policy thresholds, windows, target FPS, cooldown and success criteria are derived from measurements on the selected Pi 5 configuration. | R4/R2/R6 | Benchmark data + ADR | ☐ |
-| EF-NFR-06 | Every team member can run a simulated station with prerecorded input locally; physical Pis are needed only for hardware acceptance tests. | R1/R2 | Documented, verified procedure | ☐ |
-| EF-NFR-07 | No secrets, large datasets or model weights in the repository. | All | CI / review checklist | ☐ |
-| EF-NFR-08 | The adaptive behaviour is compared against simpler fixed/threshold-based behaviour. | R6 | Evaluation report | ☐ |
-| EF-NFR-09 | The system runs without project funding: three Pi 5s plus a team-owned computer. No paid cloud services required. | R1 | Deployment doc | ☐ |
-
-## 4. Stretch goals (not required for MVP acceptance)
-
-| ID | Stretch goal |
-|---|---|
-| EF-SG-01 | Continuous image-quality monitoring (blur, fog, low light, scene change). *Degraded-image evaluation (EF-NFR-04) is still required.* |
-| EF-SG-02 | Automatic resolution adjustment. |
-| EF-SG-03 | Automatic model switching. |
-| EF-SG-04 | Live active-vs-candidate model disagreement monitoring and shadow inference. |
-| EF-SG-05 | Candidate/canary deployment orchestration. |
-| EF-SG-06 | Automatic or operator-triggered rollback. |
-| EF-SG-07 | Workload migration between Raspberry Pis. |
-
-Original SRS requirements that covered these features must be **re-labelled as stretch goals**,
-not deleted, so the change can be traced.
-
-## 5. Exclusions (out of scope)
-
-Drone integration; autonomous model retraining; certified life-safety and emergency dispatch;
-production forest-wide deployment; novel ML architecture research; Kubernetes/cloud
-orchestration as a requirement; unrestricted AI-agent control of physical devices.
-
-## 6. Dependencies on open decisions
-
-| Decision | Affects |
-|---|---|
-| Messaging MQTT vs NATS (ADR 0004) | EF-FR-07, 08, 18, 19–21 |
-| Edge buffer implementation (ADR 0005) | EF-FR-17, 18 |
-| Offline alert snapshots | EF-FR-12, 13, 18 |
-| ML baseline and dataset (ADR 0006) | EF-FR-04, 05; EF-NFR-02–04 |
-| FPS thresholds and evaluation | EF-FR-19–21; EF-NFR-05 |
-
-## 7. Review and approval record
-
-| Role | Name | Reviewed (date) | Approved |
-|---|---|---|---|
-| R1 | Anthony | | ☐ |
-| R2 | Tomiwa | | ☐ |
-| R3 | Diego | | ☐ |
-| R4 | Gabe | | ☐ |
-| R5 | Ethan | | ☐ |
-| R6 | Dylan | | ☐ |
-
-This document stays **DRAFT** until every row above is approved and every decision-register
-entry has an owner and target date.
+Faculty approval is pending. Keep research/human-review boundaries, individual ECE obligations,
+and CS-led project deadlines distinct. See the [audit](../reviews/2026-10-22-repository-audit.md)
+for remaining gaps and the [test plan](../testing/test-plan.md) for qualification coverage.

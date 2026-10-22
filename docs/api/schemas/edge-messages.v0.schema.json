@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://emberflow.local/schemas/edge-messages.v0.schema.json",
   "title": "EmberFlow edge message envelope (PROPOSAL v0)",
-  "description": "PROPOSAL — not yet approved. Transport-agnostic envelope for messages exchanged between edge stations and the controller. Valid for MQTT or NATS; the transport decision is OPEN (ADR 0004). Change only via a reviewed contracts PR (see docs/api/contracts.md).",
+  "description": "LEGACY PROPOSAL v0 — not approved and incomplete for the October 22 v1.1 review baseline (see docs/api/contracts.md section 7). Transport-agnostic envelope for messages exchanged between edge stations and the controller. Valid for MQTT or NATS; the transport decision is OPEN (ADR 0004). Change only via a reviewed contracts PR (see docs/api/contracts.md).",
   "type": "object",
   "additionalProperties": false,
   "required": ["schema_version", "event_id", "message_type", "station_id", "source_timestamp", "payload"],
@@ -105,7 +105,7 @@
         "model_version": { "type": "string", "minLength": 1 },
         "inference_latency_ms": { "type": "number", "minimum": 0 },
         "snapshot_ref": {
-          "description": "OPEN DECISION: how/whether review imagery is captured and buffered offline. Null until decided.",
+          "description": "Legacy v0 permits null/missing imagery; this is incomplete for v1.1, which requires representative images. Transfer, integrity and completion contract pending; see docs/api/contracts.md section 7.",
           "type": ["string", "null"]
         }
       }
@@ -138,7 +138,7 @@
       }
     },
     "ack": {
-      "description": "Durable acknowledgment from the controller. Sent only after records are committed to the database.",
+      "description": "Legacy v0 metadata acknowledgment after database commit. Does not encode complete metadata-plus-image receipt required by v1.1; do not use alone to authorize image cleanup.",
       "type": "object",
       "additionalProperties": false,
       "required": ["results"],

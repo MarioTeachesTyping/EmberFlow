@@ -3,7 +3,7 @@
 - **Status:** Accepted
 - **Date:** 2026-10-14 (recorded from the architecture handoff)
 - **Owner:** R5 (Ethan)
-- **Reviewers:** R4 (Gabe), R1 (Anthony)
+- **Reviewers:** R4 (James), R1 (Anthony)
 
 ## Context
 
@@ -21,7 +21,8 @@ audit) goes in regular tables.
 
 - `event_id` gets a unique constraint so replay is idempotent.
 - Tables store both `source_timestamp` and `received_at`.
-- Current station state comes from the newest source time, not from arrival order.
+- Historical ordering uses source time and session/sequence with clock validity, not arrival order.
+  Current liveness comes from fresh contact under the agreed timeout rules, not buffered replay.
 - A migration tool still needs to be chosen (open).
 - Redis is **not** part of the baseline. Add it only if a measured need appears.
 

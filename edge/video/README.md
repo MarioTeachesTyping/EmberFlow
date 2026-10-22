@@ -7,9 +7,10 @@ Frame source abstraction over a live camera or a prerecorded wildfire video file
 
 ## Planned contents
 
-- Camera source (Pi camera / USB — hardware choice per station)
+- One USB webcam initially, to be verified on each of the three Pis; exact model/video mode open
 - File source for prerecorded video (used for development and repeatable tests)
-- Runtime-adjustable processing FPS (target of the required FPS adaptation)
+- Runtime-adjustable processing FPS and preprocessing resolution; keep capture FPS distinct
+- Frame identity/timestamps and camera loss/recovery status for the ML/platform contract
 
 ## Boundaries
 

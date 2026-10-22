@@ -5,12 +5,15 @@
 
 ## 1. Topology assumptions
 
-- **Edge:** exactly three Raspberry Pi 5 devices, each a station with its own camera or
-  prerecorded video source.
+- **Edge:** three physical Raspberry Pi 5 stations with a common camera-capable platform.
+  Initially one USB webcam, tested on each Pi in turn; local replay on the other two. No custom PCB.
+- **Environment:** indoor demonstration, compatible mains supplies/cables, documented cooling
+  and bounded storage. No outdoor enclosure, autonomous field power or UPS is promised.
 - **Central host:** one **team-owned computer** runs the controller, database, messaging
   infrastructure and dashboard. Cloud hosting is not required.
-- **Network:** the Pis and the central host share a network the team controls (lab LAN or
-  similar). The exact physical layout is **not decided**.
+- **Network:** wired Ethernet from the three Pis and existing central host to a switch/router
+  with at least four endpoint ports. Exact equipment, host adapter, addresses/routes, broker/API
+  ports and access controls are open. Do not assume an internet dependency for local inference.
 - **Development:** every developer can run a **simulated station** with prerecorded video on
   a laptop. The physical Pis are only needed for hardware acceptance tests.
 
@@ -34,11 +37,12 @@
 | Video pipeline | Camera or file input at a controllable processing FPS | In-process module of the agent |
 | Inference | Primary or lightweight model | In-process; model loaded from local path |
 | Telemetry collector | System and pipeline metrics | In-process |
-| Offline buffer | Durable local store (SQLite recommended) | File on local storage |
+| Offline evidence | Durable metadata/image outbox and retained telemetry (SQLite proposed for metadata) | Image storage/lifecycle and quotas still to define |
 
-Still to decide or record: Pi OS version, Python version on the Pi, camera hardware, the
-process supervisor (e.g. systemd), and cooling setup. Cooling directly affects the
-temperature trigger.
+Still to decide or record: Pi OS/Python/runtime versions, exact USB camera/modes, board RAM,
+storage, compatible supplies/cables/cooling and service supervision. Inventory and budget precede
+purchases. Benchmark one Pi with Diego before freezing variants and numerical targets. Record
+physical connections, power/thermal observations and the per-station hardware/software revision.
 
 ## 3. Services on the central host
 
@@ -70,9 +74,11 @@ compose file will be added only once it has been written and actually run.
 3. Start each station's edge agent. It registers with the controller and begins publishing.
 4. Check that each station shows as healthy on the dashboard.
 
-Rollout to the Pis (copying code and models, managing services) is still to be designed. Use
-a simple, documented manual or scripted procedure. Canary/rollback orchestration is a
-**stretch goal**.
+Rollout to the Pis (copying code/models and supervising services) remains to be designed.
+Version the setup, model adapter and dependency/configuration records; a non-owner teammate
+must reproduce the platform. Candidate/shadow comparison, limited rollout and known-good
+rollback are required in the v1.1 review scope. Workload movement requires a destination-accessible
+source. Full-team/faculty ratification of the revised scope is pending; no deployment is claimed.
 
 ## 6. To be documented once verified
 
@@ -81,3 +87,10 @@ a simple, documented manual or scripted procedure. Canary/rollback orchestration
 - [ ] Central host OS and Docker setup
 - [ ] Broker setup (after ADR 0004)
 - [ ] Commands that have been run and verified to bring up the full stack
+
+- [ ] Representative-image persistence, integrity, receipt, retention and capacity profile
+- [ ] Physical diagram/BOM/station inventory and teammate platform reproduction
+- [ ] Supported algorithm/model-adapter fixture, frozen benchmark/acceptance profile
+
+See [ADR 0007](../decisions/0007-october-22-review-baseline.md) and the
+[audit](../reviews/2026-10-22-repository-audit.md) for the revision authority and remaining gaps.
