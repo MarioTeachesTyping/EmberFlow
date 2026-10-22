@@ -3,15 +3,17 @@
 <p align="center">Distributed edge-computing research prototype for reliable wildfire smoke monitoring.</p>
 
 Project documents and agent context: start with [docs/PROJECT_REFERENCE.md](docs/PROJECT_REFERENCE.md).
-It links the October 22 v1.1 specifications and identifies unresolved differences from this
-repository's earlier MVP draft. Agents should also read the root [AGENTS.md](AGENTS.md).
+It links the October 22 v1.1 review specifications and the [repository audit](docs/reviews/2026-10-22-repository-audit.md).
+Agents should also read the root [AGENTS.md](AGENTS.md).
 
 > **Project status: Phase 1 — Foundation.** This repository currently contains the scaffold,
-> standards, documentation and a *proposed* message contract. **No EmberFlow subsystem
-> (edge agent, ML inference, controller, database, dashboard) has been implemented yet.**
+> standards, documentation and a *proposed* message contract. **No runnable EmberFlow subsystem
+> (edge agent, ML inference, controller, database, dashboard) is present in this checkout.**
 > See [Implemented vs planned](#implemented-vs-planned).
 
-EmberFlow is a two-semester senior-design project by a six-person team with no project funding.
+EmberFlow is a two-semester senior-design project by six students: one Computer Engineering
+student and five Computer Science students. No hardware budget or funding plan has been agreed,
+and no purchased hardware is established by the reviewed sources.
 
 ## Problem and research goal
 
@@ -22,43 +24,43 @@ It aims to show that the following can work together and be measured:
 - local smoke inference on Raspberry Pi 5 stations,
 - health monitoring of those stations,
 - offline continuity (buffering and replay without duplicates),
-- human review of potential detections, and
-- measured, audited recovery: specifically **automatic inference frame-rate reduction** when a
-  defined degraded-resource condition persists.
+- human review of potential detections,
+- image/model trust monitoring, candidate evaluation and controlled model deployment, and
+- measured, audited adaptation and recovery under recorded fault conditions.
 
 ## Scope
 
-### Required MVP
+### Current review scope
 
-- **Three Raspberry Pi 5 stations** in one integrated system, each processing a live camera or
-  prerecorded wildfire video and running inference locally.
-- **Two model configurations:** one primary smoke-detection model and one lightweight/optimized
-  alternative, each reporting prediction, confidence, model version and inference latency.
-  Both start from existing pretrained architectures.
-- **Edge telemetry:** CPU, memory, temperature, inference latency, throughput/FPS, network
-  status, camera status, active model version.
-- **Controller (Python/FastAPI):** station registration, telemetry/detection ingestion,
-  stale/unhealthy station detection, health tracking, API access.
-- **Operator dashboard (React + TypeScript):** station status, potential smoke detections with
-  confidence/time/station/model, confirm/dismiss alerts, recent history.
-- **Central storage:** PostgreSQL with TimescaleDB for telemetry. Event IDs and source
-  timestamps survive delayed delivery.
-- **Offline continuity:** inference continues during connectivity loss. Records are durably
-  buffered and replayed on reconnection, and no record is accepted twice.
-- **Required automated adaptation:** automatic inference FPS reduction under a sustained
-  degraded-resource condition, with the initial condition, command, application and measured
-  result all recorded.
-- **Evaluation:** reproducible reliability tests; precision, recall, F1, false-alert rate and
-  edge inference performance; evaluation on a small agreed set of degraded image inputs.
+The [v1.1 system SRS](docs/specifications/v1.1/EmberFlow_Senior_Design_SRS_v1_1.md) is the
+current review baseline. Tomiwa approved aligning this repository to that scope on October 22;
+full-team/faculty approval is still pending. The earlier reduced MVP/stretch split is historical.
+The first vertical slice is a delivery milestone, not the complete acceptance scope.
 
-### Stretch goals (not mandatory)
-
-- Continuous image-quality monitoring (blur/fog/low light/scene change). Degraded-image
-  *evaluation* is still required.
-- Automatic resolution adjustment and automatic model switching.
-- Live active-vs-candidate model disagreement monitoring and shadow inference.
-- Candidate/canary deployment and automatic or operator-triggered rollback.
-- Workload migration between Raspberry Pis.
+- **Hardware/platform:** three physical Raspberry Pi 5 stations for an indoor demonstration;
+  no custom PCB. One USB webcam initially, to be tested on each station in turn; local prerecorded
+  input on the other two stations. Wired Ethernet connects the Pis and an existing team computer.
+- **Local inference:** primary and lightweight/optimized model configurations with versioned
+  prediction, confidence, source/frame identity, and inference latency. Model/runtime selection
+  and Pi measurements remain open.
+- **Monitoring:** device health, camera/network/storage status, image quality, input change,
+  and meaningful model disagreement. Diego owns the methods; Tomiwa integrates edge execution.
+- **Offline evidence:** continue local processing, retain accepted event metadata with one
+  representative image plus retained telemetry, and replay safely. Completion requires durable,
+  jointly reviewable metadata and image centrally. Bound capacity and expose admission failures.
+- **Controller and operator:** registration, ingestion, state/freshness tracking, human alert
+  review, configurable limits, model approval/deployment controls, and actor/trigger/outcome audit.
+- **Adaptation/model lifecycle:** FPS and resolution control, approved smaller-model switching,
+  workload movement with an accessible input source, shadow comparison, limited rollout, and
+  restoration of a known-good model. AC-4 requires three demonstrated mechanisms; it does not
+  waive the individual mandatory requirements for the others.
+- **Persistence:** PostgreSQL with TimescaleDB, with versioned station, evidence, telemetry,
+  deployment, review, and audit records. Exact image storage and completion protocol remain open.
+- **Evaluation:** fixed deployment vs simple temperature threshold vs full EmberFlow using
+  comparable inputs/faults; detection quality, input-change timing, availability, recovery,
+  latency, buffered-alert delivery, and rollback metrics.
+- **Handoff/acceptance:** another teammate reproduces the supported station; final hardware,
+  model, interface, storage and numerical test profiles are frozen before qualification.
 
 ### Out of scope
 
@@ -72,11 +74,11 @@ out of the backlog unless the team formally revises scope.
 | Component | State |
 |---|---|
 | Repository scaffold, standards, CI | **Present** |
-| Edge message contract (JSON Schema) + fixture tests | **Present — PROPOSAL v0**, pending team review |
+| Edge message contract (JSON Schema) + fixture tests | **Present — legacy PROPOSAL v0**, incomplete for v1.1; see [contract gaps](docs/api/contracts.md#7-gaps-before-v11-integration) |
 | Architecture, deployment, contracts, SRS, ADR, test-plan docs | **Present — drafts** |
 | Edge agent, telemetry, video, offline buffer | Planned |
 | ML models, inference, evaluation | Planned (model choice OPEN) |
-| Controller API, messaging, FPS policy, command lifecycle | Planned (messaging OPEN) |
+| Controller API, messaging, adaptation, candidate rollout/rollback, migration | Planned (protocols and policy details OPEN) |
 | Database schema and migrations | Planned |
 | Operator dashboard | Planned (project not yet initialized) |
 | Fault injection and experiments | Planned |
@@ -102,7 +104,7 @@ FPS ctl    FPS ctl    FPS ctl
 ```
 
 Inference runs on the Pis. The controller handles policy and collects events; it does not run
-per-frame inference. This is a logical architecture, not a fixed network layout. Details:
+per-frame inference. This is a logical architecture; the physical baseline is wired Ethernet on a team-controlled LAN. Details:
 [docs/architecture/overview.md](docs/architecture/overview.md).
 
 ## Technology baseline
@@ -137,7 +139,7 @@ Each directory has a README that states its owner, planned contents and boundari
 
 ## Development
 
-Everything in this section has been run and verified.
+These commands verify the repository tooling and example schemas, not the planned EmberFlow services.
 
 ```bash
 python -m venv .venv
@@ -157,6 +159,9 @@ prerecorded video on a laptop; physical Pis should only be needed for hardware a
 
 ## Tests and CI
 
+Optional agent navigation: [Graphify setup and limits](docs/tooling/graphify.md). It complements
+the project reference and runs in a separate developer environment; it is not required by CI.
+
 GitHub Actions ([`.github/workflows/ci.yml`](.github/workflows/ci.yml)) runs Ruff lint, Ruff
 format check and pytest on every PR and on pushes to `main`. Dashboard lint/typecheck/test/build
 steps turn on automatically once `dashboard/frontend/package.json` and its lockfile exist. See
@@ -166,13 +171,14 @@ steps turn on automatically once `dashboard/frontend/package.json` and its lockf
 
 | Role | Member | Owns |
 |---|---|---|
-| R1 | Anthony | Architecture, cross-team schemas, repository standards, integration and release coordination |
-| R2 | Tomiwa | Pi 5 hardware, camera/video input, edge agent, metrics, edge-side FPS execution and buffering |
-| R3 | Diego | Datasets, primary/alternative model, inference output contract, benchmarks, model evaluation |
-| R4 | Gabe | FastAPI, registration, messaging, ingestion, node health, FPS policy, command lifecycle, replay acknowledgment |
-| R5 | Ethan | PostgreSQL/TimescaleDB schema and migrations, dashboard, alerts, history, operator workflows |
-| R6 | Dylan | CI, automated tests, fault injection, repeatable experiments, reliability metrics |
+| R1 | Anthony Terry | Architecture, cross-team schemas, repository standards, integration and release coordination |
+| R2 | Tomiwa Aluko | Edge hardware/platform, video, telemetry, durable metadata/image buffering, valid command execution and platform handoff |
+| R3 | Diego Mendoza | Datasets, models, inference contract, trust-monitoring methods, candidate comparison and benchmarks |
+| R4 | James Connolly | Controller, messaging/ingestion, freshness, adaptation, deployment/rollback, workload coordination, durable receipt |
+| R5 | Ethan McKissic | Central persistence/images, dashboard, alert review, configuration/model approval and audit history |
+| R6 | Dylan Mcintee | CI, automated tests, fault injection, repeatable experiments, reliability metrics |
 
+James also appears as Gabe/Gabriel in source material and Jira; use James Connolly in formal documents.
 Subsystem owners stay responsible for testing their own code. See
 [CONTRIBUTING.md](CONTRIBUTING.md) for the workflow.
 
@@ -180,9 +186,15 @@ Subsystem owners stay responsible for testing their own code. See
 
 1. **Foundation:** repository, standards, shared schemas, scope/SRS review, decision register, CI. *(in progress)*
 2. **Vertical slice:** one real or simulated station → controller → database → dashboard, with real or mocked inference.
-3. **Three-node MVP:** all three Pi 5s, two model configurations, telemetry, operator alerts, offline buffering/replay.
-4. **FPS adaptation:** trigger, command, apply, verify, cooldown, complete audit evidence.
-5. **Evaluation:** repeatable failures, degraded-image evaluation, comparison against simpler fixed/threshold behaviour.
+3. **Three-node integration:** physical Pis, common USB camera support, telemetry, reviewable offline metadata/images, and teammate platform handoff.
+4. **Trust/adaptation/model lifecycle:** image/input-change/disagreement methods, control mechanisms, accessible-source workload movement, candidate comparison, limited rollout, rollback and audit.
+5. **Qualification and evaluation:** freeze measured targets; run all individual requirements and acceptance gates, including the three-controller comparison.
+
+Procurement first needs an equipment inventory, budget and BOM. Benchmark one Pi with Diego
+before freezing remaining station variants and performance commitments. SD1 emphasizes design,
+comparisons and available bench evidence; SD2 closes the integrated implementation/evaluation.
+Use the SRS milestone gates and reconcile the CS-led calendar with Tomiwa's separate ECE
+writing/evaluation obligations. The no-PCB clarification does not waive those obligations.
 
 ## License
 

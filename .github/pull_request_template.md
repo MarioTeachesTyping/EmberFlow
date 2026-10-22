@@ -37,4 +37,5 @@ Jira: SCRUM-<!-- id -->
 
 - [ ] No secrets, credentials, `.env` files or private keys
 - [ ] No datasets, video files, model weights or bulk experiment output
-- [ ] No stretch-goal or out-of-scope feature added as mandatory behaviour
+- [ ] Scope matches the current v1.1 review SRS; any requirement addition, removal or demotion has a recorded decision
+- [ ] Review draft, team approval and actual implementation/test evidence are distinguished

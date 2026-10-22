@@ -1,0 +1,542 @@
+{
+  "date": "2026-10-22",
+  "parent_commit": "3b1fe0adaa9823dd69f260f45ae1aba92e99beb4",
+  "tracked_parent_files_reviewed": 88,
+  "parent_files_updated": 40,
+  "files": [
+    {
+      "path": ".editorconfig",
+      "parent_sha256": "ac9e1878d49af3fad8ebac2ca266b2820a51760ba5db488cd0349f5eebea0677",
+      "review_method": "Text/config/schema/test inspection against sources and current repository",
+      "disposition": "retained after review"
+    },
+    {
+      "path": ".env.example",
+      "parent_sha256": "a1c241e294a3e308156c0761fc8abdd2d110c46d5711aecbc3757ebd32132138",
+      "review_method": "Text/config/schema/test inspection against sources and current repository",
+      "disposition": "updated for documented finding"
+    },
+    {
+      "path": ".gitattributes",
+      "parent_sha256": "d2920d364fe1e6255aa96ef1708bc015fe5c699556059e8fec44c3a5db571809",
+      "review_method": "Text/config/schema/test inspection against sources and current repository",
+      "disposition": "retained after review"
+    },
+    {
+      "path": ".github/pull_request_template.md",
+      "parent_sha256": "211cb4f14e1dd65ef525506582ee29f18215899003b973101917a75c549c8f20",
+      "review_method": "Text/config/schema/test inspection against sources and current repository",
+      "disposition": "updated for documented finding"
+    },
+    {
+      "path": ".github/workflows/ci.yml",
+      "parent_sha256": "a4a0b414d13a10fec12eee31ae56e2d7cbf6b0932aa93602565cc1474b997167",
+      "review_method": "Text/config/schema/test inspection against sources and current repository",
+      "disposition": "retained after review"
+    },
+    {
+      "path": ".gitignore",
+      "parent_sha256": "f63a1ad99bdf336e6e9c6c31befe2b087fb25b0acb0e3d9c41752a7fab8304f1",
+      "review_method": "Text/config/schema/test inspection against sources and current repository",
+      "disposition": "retained after review"
+    },
+    {
+      "path": "AGENTS.md",
+      "parent_sha256": "cc23b4b2057d242ea4af2e0c6b111f2d0ef605b789f568a965f44f7c9d3a7288",
+      "review_method": "Text/config/schema/test inspection against sources and current repository",
+      "disposition": "retained after review"
+    },
+    {
+      "path": "CONTRIBUTING.md",
+      "parent_sha256": "9fd5f0734ac7eb8aa5f393cb4eed188ed6cdacc977ced33b5a003f2eee1616c1",
+      "review_method": "Text/config/schema/test inspection against sources and current repository",
+      "disposition": "updated for documented finding"
+    },
+    {
+      "path": "README.md",
+      "parent_sha256": "88f94415c4cfc0be643ecc06a8d5ea889e0876b792bda1eb18eeb7ccaca88240",
+      "review_method": "Text/config/schema/test inspection against sources and current repository",
+      "disposition": "updated for documented finding"
+    },
+    {
+      "path": "controller/README.md",
+      "parent_sha256": "8c61696d6ddcb381c5729940ef80185ad5ee68741ef54999d703971a4f6dd6cd",
+      "review_method": "Text/config/schema/test inspection against sources and current repository",
+      "disposition": "updated for documented finding"
+    },
+    {
+      "path": "controller/api/README.md",
+      "parent_sha256": "97e887ae8bfc3286a9b35c47d7a345ffe044c856ad0f4c1d28f1c1b943b03700",
+      "review_method": "Text/config/schema/test inspection against sources and current repository",
+      "disposition": "updated for documented finding"
+    },
+    {
+      "path": "controller/messaging/README.md",
+      "parent_sha256": "d946a02921306dce2adcf1e81c68fbf92833b2e8d6d25d994d3c85fef756b4ad",
+      "review_method": "Text/config/schema/test inspection against sources and current repository",
+      "disposition": "updated for documented finding"
+    },
+    {
+      "path": "controller/policies/README.md",
+      "parent_sha256": "0f175c2219bf2f46c1ee1ab794b16d37292d6855ed2c2e62f199275f27b60b70",
+      "review_method": "Text/config/schema/test inspection against sources and current repository",
+      "disposition": "updated for documented finding"
+    },
+    {
+      "path": "controller/recovery/README.md",
+      "parent_sha256": "1dbe32c879ba1f2fdec92b6a9ece6ab1ad847d7a219d2b005af322f879f2273e",
+      "review_method": "Text/config/schema/test inspection against sources and current repository",
+      "disposition": "updated for documented finding"
+    },
+    {
+      "path": "dashboard/README.md",
+      "parent_sha256": "22b113516375a7e4f3a6b15b819071132fe4493bafbd6e79eda918ce3600269e",
+      "review_method": "Text/config/schema/test inspection against sources and current repository",
+      "disposition": "retained after review"
+    },
+    {
+      "path": "dashboard/frontend/README.md",
+      "parent_sha256": "c990e6c2d6bea17404b70963d2f0068bf982a138af068052c7b6889ed907337d",
+      "review_method": "Text/config/schema/test inspection against sources and current repository",
+      "disposition": "updated for documented finding"
+    },
+    {
+      "path": "data/README.md",
+      "parent_sha256": "f6e3007415364965d445cd00cf29b35f51f1e6514bcf0901224768ce6b0304c8",
+      "review_method": "Text/config/schema/test inspection against sources and current repository",
+      "disposition": "retained after review"
+    },
+    {
+      "path": "data/database/README.md",
+      "parent_sha256": "b8db8b57e64714dd1bcfff3cb71e278c168f2650235e265ab81c1957c8168f82",
+      "review_method": "Text/config/schema/test inspection against sources and current repository",
+      "disposition": "updated for documented finding"
+    },
+    {
+      "path": "data/migrations/README.md",
+      "parent_sha256": "532f9d84a6fc7c57dd5a2b78786b74cff6e77fa01e6135616fb5b1402aab9ae7",
+      "review_method": "Text/config/schema/test inspection against sources and current repository",
+      "disposition": "retained after review"
+    },
+    {
+      "path": "docs/PROJECT_REFERENCE.md",
+      "parent_sha256": "03092dc0b3acefe45da378e01357b292476575990b14e47f655949c600baa5c4",
+      "review_method": "Text/config/schema/test inspection against sources and current repository",
+      "disposition": "updated for documented finding"
+    },
+    {
+      "path": "docs/README.md",
+      "parent_sha256": "3f8f8fc624d6606bdf0d2d046dce7a0b9d7ee0516a58f79817b93127f8d6b9ac",
+      "review_method": "Text/config/schema/test inspection against sources and current repository",
+      "disposition": "updated for documented finding"
+    },
+    {
+      "path": "docs/api/contracts.md",
+      "parent_sha256": "a15de89cf886118d0a7a5819d73fef6b014318fee1c37f1fa11b87d64d6f2b10",
+      "review_method": "Text/config/schema/test inspection against sources and current repository",
+      "disposition": "updated for documented finding"
+    },
+    {
+      "path": "docs/api/schemas/edge-messages.v0.schema.json",
+      "parent_sha256": "d6bbf76ee5d6e69d8034369890d345c4fc6e9ba66cb6c5c4ca3eb730bd515a8a",
+      "review_method": "Text/config/schema/test inspection against sources and current repository",
+      "disposition": "updated for documented finding"
+    },
+    {
+      "path": "docs/architecture/deployment.md",
+      "parent_sha256": "cb15eed40e64b5f7e25cbabe9929e5ec9e6c204c032ade47c69ada7a995127f6",
+      "review_method": "Text/config/schema/test inspection against sources and current repository",
+      "disposition": "updated for documented finding"
+    },
+    {
+      "path": "docs/architecture/overview.md",
+      "parent_sha256": "094050e8c6e70ca500366d817634b31ab689b26b6797cb55db9a0687e48ec2de",
+      "review_method": "Text/config/schema/test inspection against sources and current repository",
+      "disposition": "updated for documented finding"
+    },
+    {
+      "path": "docs/decisions/0000-template.md",
+      "parent_sha256": "f82b476be23770891055d1ae6fcec2f2289955384f5f03a893121ba9e5868c60",
+      "review_method": "Text/config/schema/test inspection against sources and current repository",
+      "disposition": "retained after review"
+    },
+    {
+      "path": "docs/decisions/0001-edge-hardware.md",
+      "parent_sha256": "ed694e2d32ff66cdd5345065b4f940fabf08cc69bcbc29e855b8938ebf0fa44d",
+      "review_method": "Text/config/schema/test inspection against sources and current repository",
+      "disposition": "updated for documented finding"
+    },
+    {
+      "path": "docs/decisions/0002-central-database.md",
+      "parent_sha256": "a5959144076917eb0bae6a1ce897b2aae3104d4a81d5424f4efbca1ba9c05c46",
+      "review_method": "Text/config/schema/test inspection against sources and current repository",
+      "disposition": "updated for documented finding"
+    },
+    {
+      "path": "docs/decisions/0003-central-services-stack.md",
+      "parent_sha256": "bf83cc10df807d1d25607d42317c0dd0de639bbfdde00498a3809b4c7091e09f",
+      "review_method": "Text/config/schema/test inspection against sources and current repository",
+      "disposition": "updated for documented finding"
+    },
+    {
+      "path": "docs/decisions/0004-messaging.md",
+      "parent_sha256": "77811f1095f1c9f677e05c4e6a5d0e4e82d89008f1ba59517ee506027091d581",
+      "review_method": "Text/config/schema/test inspection against sources and current repository",
+      "disposition": "updated for documented finding"
+    },
+    {
+      "path": "docs/decisions/0005-edge-offline-buffer.md",
+      "parent_sha256": "b981bb3a51bdf5deb26a75e03eb66644124a27bed0f792e3f9a8cae566b6c13a",
+      "review_method": "Text/config/schema/test inspection against sources and current repository",
+      "disposition": "updated for documented finding"
+    },
+    {
+      "path": "docs/decisions/0006-ml-baseline.md",
+      "parent_sha256": "b3c09095b2355f9233dfb5fbc87680cb140a576d8aa34d7fad5f7b26023dac87",
+      "review_method": "Text/config/schema/test inspection against sources and current repository",
+      "disposition": "updated for documented finding"
+    },
+    {
+      "path": "docs/decisions/README.md",
+      "parent_sha256": "c27958a12b72946deb5ef5b1b1519d20698eb4303ca24f5839dd3c0e9ac45e06",
+      "review_method": "Text/config/schema/test inspection against sources and current repository",
+      "disposition": "updated for documented finding"
+    },
+    {
+      "path": "docs/requirements/EF-SRS-001.md",
+      "parent_sha256": "a9d5b67498965d2d6843f371eec2de077d914e4c008c105cbe4c2081812fb3df",
+      "review_method": "Text/config/schema/test inspection against sources and current repository",
+      "disposition": "updated for documented finding"
+    },
+    {
+      "path": "docs/research/README.md",
+      "parent_sha256": "b2bb19787f8cba6eed829d5b1cc6af688d5680c28a0e476ea539e0bba96f59e8",
+      "review_method": "Text/config/schema/test inspection against sources and current repository",
+      "disposition": "updated for documented finding"
+    },
+    {
+      "path": "docs/specifications/v1.1/EmberFlow_Roles_and_Requirements_Specification_v1_1.docx",
+      "parent_sha256": "2c8f26f35138734494aef8f2a4b671f95120cd7c7a6d3a81c5cc917419e8fbb6",
+      "review_method": "Previously reviewed source package; integrity/unchanged-content check",
+      "disposition": "preserved source package"
+    },
+    {
+      "path": "docs/specifications/v1.1/EmberFlow_Roles_and_Requirements_Specification_v1_1.md",
+      "parent_sha256": "23c08eabdb83df58d6ca6597169f529d21d1badd5aa1a4f7a8ce19bda59701d6",
+      "review_method": "Previously reviewed source package; integrity/unchanged-content check",
+      "disposition": "preserved source package"
+    },
+    {
+      "path": "docs/specifications/v1.1/EmberFlow_Roles_and_Requirements_Specification_v1_1.pdf",
+      "parent_sha256": "1c608e4e4febb414b7c9dc1118f394a3c7b200330eb5a048d91405021ff9e463",
+      "review_method": "Previously reviewed source package; integrity/unchanged-content check",
+      "disposition": "preserved source package"
+    },
+    {
+      "path": "docs/specifications/v1.1/EmberFlow_Senior_Design_SRS_v1_1.docx",
+      "parent_sha256": "df83ff9fccd057310dd4d27bb05d6df4f9918caaa823739f248696ddc449baf8",
+      "review_method": "Previously reviewed source package; integrity/unchanged-content check",
+      "disposition": "preserved source package"
+    },
+    {
+      "path": "docs/specifications/v1.1/EmberFlow_Senior_Design_SRS_v1_1.md",
+      "parent_sha256": "385759d79a171afadeb9a68d98f11554ddce52e333e42d5d16fbda88a2a8b4ed",
+      "review_method": "Previously reviewed source package; integrity/unchanged-content check",
+      "disposition": "preserved source package"
+    },
+    {
+      "path": "docs/specifications/v1.1/EmberFlow_Senior_Design_SRS_v1_1.pdf",
+      "parent_sha256": "b71f696d3fd4f24f0920bb53d16144f7e76542e033849442c5dc8da288684723",
+      "review_method": "Previously reviewed source package; integrity/unchanged-content check",
+      "disposition": "preserved source package"
+    },
+    {
+      "path": "docs/specifications/v1.1/EmberFlow_Tomiwa_Edge_Subsystem_Specification_v1_1.docx",
+      "parent_sha256": "4a30687b68724770484a08bd6b2c887622202ffc12ee9dd8e5f3576649bd68df",
+      "review_method": "Previously reviewed source package; integrity/unchanged-content check",
+      "disposition": "preserved source package"
+    },
+    {
+      "path": "docs/specifications/v1.1/EmberFlow_Tomiwa_Edge_Subsystem_Specification_v1_1.md",
+      "parent_sha256": "e999e0cc2563799fb1ce8c3965d031cd0880477344bf0b2c87525313cb7e8e5e",
+      "review_method": "Previously reviewed source package; integrity/unchanged-content check",
+      "disposition": "preserved source package"
+    },
+    {
+      "path": "docs/specifications/v1.1/EmberFlow_Tomiwa_Edge_Subsystem_Specification_v1_1.pdf",
+      "parent_sha256": "ad3963456f83372430a30cd63b87d9551a3c46381bf3c1ca96cbdd2c9b8107e3",
+      "review_method": "Previously reviewed source package; integrity/unchanged-content check",
+      "disposition": "preserved source package"
+    },
+    {
+      "path": "docs/specifications/v1.1/README.md",
+      "parent_sha256": "4bc0e1e0aa27b67619b84701bfa1dd9fba27383e182abea9a122ae88bfb143b4",
+      "review_method": "Previously reviewed source package; integrity/unchanged-content check",
+      "disposition": "preserved source package"
+    },
+    {
+      "path": "docs/specifications/v1.1/Validation_Record.json",
+      "parent_sha256": "65db388afaa1fd5afb20ebf60d8bacf747d62137bef96df5dea9a76b8fe6ec48",
+      "review_method": "Previously reviewed source package; integrity/unchanged-content check",
+      "disposition": "preserved source package"
+    },
+    {
+      "path": "docs/specifications/v1.1/diagrams/edge_evidence_flow.mmd",
+      "parent_sha256": "dc4efd34aa462b2faf443c9f17277d26de78a69d8c6dc03b6e162168932ed9c5",
+      "review_method": "Previously reviewed source package; integrity/unchanged-content check",
+      "disposition": "preserved source package"
+    },
+    {
+      "path": "docs/specifications/v1.1/diagrams/edge_evidence_flow.png",
+      "parent_sha256": "63eae04b243fa76e0e8ce7487930a490099a45b972ad7bf80e3f3b44f5099d55",
+      "review_method": "Previously reviewed source package; integrity/unchanged-content check",
+      "disposition": "preserved source package"
+    },
+    {
+      "path": "docs/specifications/v1.1/diagrams/station_hardware.mmd",
+      "parent_sha256": "733242b46bb9a52510ad015045e41070081300ce4c32888d1e075822b00fd132",
+      "review_method": "Previously reviewed source package; integrity/unchanged-content check",
+      "disposition": "preserved source package"
+    },
+    {
+      "path": "docs/specifications/v1.1/diagrams/station_hardware.png",
+      "parent_sha256": "6680849c5058c43445103a3d49f40158d750f3959db85067b24c0c6e97bfde47",
+      "review_method": "Previously reviewed source package; integrity/unchanged-content check",
+      "disposition": "preserved source package"
+    },
+    {
+      "path": "docs/specifications/v1.1/diagrams/system_deployment.mmd",
+      "parent_sha256": "73e3b23513361fb1aa1a54357ef45ba3fe232faf782248b8fc8f382e13e31f1f",
+      "review_method": "Previously reviewed source package; integrity/unchanged-content check",
+      "disposition": "preserved source package"
+    },
+    {
+      "path": "docs/specifications/v1.1/diagrams/system_deployment.png",
+      "parent_sha256": "6baa6b936ff91f99720205b3e5a0a1225e984c6a0a56ba305f0d10e43070aa1a",
+      "review_method": "Previously reviewed source package; integrity/unchanged-content check",
+      "disposition": "preserved source package"
+    },
+    {
+      "path": "docs/testing/test-plan.md",
+      "parent_sha256": "143770445b679570a2bdd68ff8bac8e0391bad8a02985c09bda16816ce8efd55",
+      "review_method": "Text/config/schema/test inspection against sources and current repository",
+      "disposition": "updated for documented finding"
+    },
+    {
+      "path": "edge/README.md",
+      "parent_sha256": "6d7784237eb27ed3a25d81ea1922995bd006faa0e5ce6193682fb92d2ccbafcb",
+      "review_method": "Text/config/schema/test inspection against sources and current repository",
+      "disposition": "updated for documented finding"
+    },
+    {
+      "path": "edge/agent/README.md",
+      "parent_sha256": "17ce4824c448a2352cbc2f0312a41f28d683286eae3a54ab4a3852dd29db01eb",
+      "review_method": "Text/config/schema/test inspection against sources and current repository",
+      "disposition": "updated for documented finding"
+    },
+    {
+      "path": "edge/buffering/README.md",
+      "parent_sha256": "2068cc54ea18107cb69fc9f389bfc695356b858091b7558c945221c2ee6fe23d",
+      "review_method": "Text/config/schema/test inspection against sources and current repository",
+      "disposition": "updated for documented finding"
+    },
+    {
+      "path": "edge/telemetry/README.md",
+      "parent_sha256": "41218ad347753736162a51ff107b81d179ba2b3627a1463698807ee417eaab2f",
+      "review_method": "Text/config/schema/test inspection against sources and current repository",
+      "disposition": "updated for documented finding"
+    },
+    {
+      "path": "edge/video/README.md",
+      "parent_sha256": "a54c1d9e17c7b69af9c1ffa95326ef715e148480f751e6a9e51ec56c04e98195",
+      "review_method": "Text/config/schema/test inspection against sources and current repository",
+      "disposition": "updated for documented finding"
+    },
+    {
+      "path": "experiments/README.md",
+      "parent_sha256": "f2150c40528a9a8822c80faaf71491326b890d5fb7fe9127c452471cc002d94d",
+      "review_method": "Text/config/schema/test inspection against sources and current repository",
+      "disposition": "updated for documented finding"
+    },
+    {
+      "path": "experiments/configs/README.md",
+      "parent_sha256": "dd4d475f84bad8c730b6d2d79a48469c67ece924d71e67b0ba7235f8149b3f0b",
+      "review_method": "Text/config/schema/test inspection against sources and current repository",
+      "disposition": "retained after review"
+    },
+    {
+      "path": "experiments/results/README.md",
+      "parent_sha256": "0da7ed9488fe007cf05ad48a1b18ba10015e9c82067d60eee5f0d6d2903d53c2",
+      "review_method": "Text/config/schema/test inspection against sources and current repository",
+      "disposition": "retained after review"
+    },
+    {
+      "path": "experiments/scripts/README.md",
+      "parent_sha256": "2b73f70f62324a259b9d72f7f987b2fbd955131631983846c3c88e450a543671",
+      "review_method": "Text/config/schema/test inspection against sources and current repository",
+      "disposition": "retained after review"
+    },
+    {
+      "path": "infrastructure/README.md",
+      "parent_sha256": "047187898a946675d64b84ed90637d0b47d082e119905199eb1db1caed8c775c",
+      "review_method": "Text/config/schema/test inspection against sources and current repository",
+      "disposition": "retained after review"
+    },
+    {
+      "path": "infrastructure/deployment/README.md",
+      "parent_sha256": "436ac913ac62c66803d8527c4a54d2ac706d809a56a5d50cff005482e37b5f65",
+      "review_method": "Text/config/schema/test inspection against sources and current repository",
+      "disposition": "updated for documented finding"
+    },
+    {
+      "path": "infrastructure/docker/README.md",
+      "parent_sha256": "1e0b69fa0240c7f8888c25401cba294441fcf956cb1b16d2c86df9aacc76733f",
+      "review_method": "Text/config/schema/test inspection against sources and current repository",
+      "disposition": "retained after review"
+    },
+    {
+      "path": "ml/README.md",
+      "parent_sha256": "7d36665c3cbc9b83188063cf10a46c6f6d103b3b0a67205446b8a226789b4ef8",
+      "review_method": "Text/config/schema/test inspection against sources and current repository",
+      "disposition": "updated for documented finding"
+    },
+    {
+      "path": "ml/evaluation/README.md",
+      "parent_sha256": "4dab68b5814a9bf7d047561e237e7ceda36928ff81dd3c80308d3ba7148aa707",
+      "review_method": "Text/config/schema/test inspection against sources and current repository",
+      "disposition": "updated for documented finding"
+    },
+    {
+      "path": "ml/inference/README.md",
+      "parent_sha256": "3d4ab28fbda670c6205b6155c27527ae2b5dc4ad10d6a210e76f68023e8cc338",
+      "review_method": "Text/config/schema/test inspection against sources and current repository",
+      "disposition": "updated for documented finding"
+    },
+    {
+      "path": "ml/models/README.md",
+      "parent_sha256": "dbf4ddc13a60be57400354009c3f5bd2d5961bcdf3f3fea656ef2a3f4ce3d368",
+      "review_method": "Text/config/schema/test inspection against sources and current repository",
+      "disposition": "retained after review"
+    },
+    {
+      "path": "ml/training/README.md",
+      "parent_sha256": "8eb001e46ebf2e3fe97e64c8ee3f3de0faed650a61b928e9fab93d7439fbdb42",
+      "review_method": "Text/config/schema/test inspection against sources and current repository",
+      "disposition": "retained after review"
+    },
+    {
+      "path": "pyproject.toml",
+      "parent_sha256": "2f0b0744b4b5e77708b3d39d547ce0c220e7013bba1eee90ce7e9eda4589d1e5",
+      "review_method": "Text/config/schema/test inspection against sources and current repository",
+      "disposition": "retained after review"
+    },
+    {
+      "path": "requirements-dev.txt",
+      "parent_sha256": "289f1aa924cafdc8621385410fed35c0604818af229e4d25813d84e6ed3cb741",
+      "review_method": "Text/config/schema/test inspection against sources and current repository",
+      "disposition": "retained after review"
+    },
+    {
+      "path": "testing/README.md",
+      "parent_sha256": "bf14b7a0e3481c5a7c8e004a839daa58c37ce185330142d821b5324b6a5b000a",
+      "review_method": "Text/config/schema/test inspection against sources and current repository",
+      "disposition": "updated for documented finding"
+    },
+    {
+      "path": "testing/fault_injection/README.md",
+      "parent_sha256": "03e7cfd7fd4a8c8677d0c9de6eacf9f96994e7c31d541da89cdd56c4c543243c",
+      "review_method": "Text/config/schema/test inspection against sources and current repository",
+      "disposition": "updated for documented finding"
+    },
+    {
+      "path": "testing/fixtures/contracts/invalid/command_result_verified_from_station.json",
+      "parent_sha256": "8a40a07e540dea722538453991d626aa07015eccecb9152dc0f2e928ab783ade",
+      "review_method": "Text/config/schema/test inspection against sources and current repository",
+      "disposition": "retained after review"
+    },
+    {
+      "path": "testing/fixtures/contracts/invalid/detection_confidence_out_of_range.json",
+      "parent_sha256": "16beb06b6d01d7ce6efba874042ed9e2452f0292f95324e24296070e1943afdb",
+      "review_method": "Text/config/schema/test inspection against sources and current repository",
+      "disposition": "retained after review"
+    },
+    {
+      "path": "testing/fixtures/contracts/invalid/fps_command_missing_expiry.json",
+      "parent_sha256": "026e26d35f4f6e6609df6b81f58b199215615c3b415fe11800c91f7e4d661844",
+      "review_method": "Text/config/schema/test inspection against sources and current repository",
+      "disposition": "retained after review"
+    },
+    {
+      "path": "testing/fixtures/contracts/invalid/local_timestamp_without_utc.json",
+      "parent_sha256": "3b1dc96fb6d79b83448600cd216809b7e6500dbb27386f9981133230afc9983d",
+      "review_method": "Text/config/schema/test inspection against sources and current repository",
+      "disposition": "retained after review"
+    },
+    {
+      "path": "testing/fixtures/contracts/invalid/telemetry_missing_temperature.json",
+      "parent_sha256": "a1d04802490916de57b194ee4869c6b69697af0374c7fd114bfab74cd04e2c1a",
+      "review_method": "Text/config/schema/test inspection against sources and current repository",
+      "disposition": "retained after review"
+    },
+    {
+      "path": "testing/fixtures/contracts/invalid/unknown_message_type.json",
+      "parent_sha256": "5099f293e9e5d05cd3f89f2bfec921ce539c787137df540da608f13728c7f6f1",
+      "review_method": "Text/config/schema/test inspection against sources and current repository",
+      "disposition": "retained after review"
+    },
+    {
+      "path": "testing/fixtures/contracts/valid/ack.json",
+      "parent_sha256": "ebfa3bf5cdc52c3c9745707b953464bc3c62c65127d9b90a13d4fde559d0187f",
+      "review_method": "Text/config/schema/test inspection against sources and current repository",
+      "disposition": "retained after review"
+    },
+    {
+      "path": "testing/fixtures/contracts/valid/command_result_applied.json",
+      "parent_sha256": "30a16b06b0e3cd73be5e9997b090a33333872646f663675380cc8c59d83d0a5d",
+      "review_method": "Text/config/schema/test inspection against sources and current repository",
+      "disposition": "retained after review"
+    },
+    {
+      "path": "testing/fixtures/contracts/valid/command_result_failed_expired.json",
+      "parent_sha256": "47194e8a4802ba099508338af136acf7c2394acdf7bc0e42040efba67c27faf9",
+      "review_method": "Text/config/schema/test inspection against sources and current repository",
+      "disposition": "retained after review"
+    },
+    {
+      "path": "testing/fixtures/contracts/valid/detection.json",
+      "parent_sha256": "efcc34594e6cedc994be3f040a2035c84f27613f2ee1a595966d65cac91a1330",
+      "review_method": "Text/config/schema/test inspection against sources and current repository",
+      "disposition": "retained after review"
+    },
+    {
+      "path": "testing/fixtures/contracts/valid/fps_command.json",
+      "parent_sha256": "1087d926cd84ba07bf08365458f9c36fda55a89498b44a7f0f22bb965f554b4d",
+      "review_method": "Text/config/schema/test inspection against sources and current repository",
+      "disposition": "retained after review"
+    },
+    {
+      "path": "testing/fixtures/contracts/valid/telemetry.json",
+      "parent_sha256": "22b7c29e460fcf2013df203f5921a02754a531ed45f02cee3048ba84d363830a",
+      "review_method": "Text/config/schema/test inspection against sources and current repository",
+      "disposition": "retained after review"
+    },
+    {
+      "path": "testing/integration/README.md",
+      "parent_sha256": "a5e9e4bcd68b16be4d749983b35c74ec8d903c5090eac325a24716cff58733af",
+      "review_method": "Text/config/schema/test inspection against sources and current repository",
+      "disposition": "updated for documented finding"
+    },
+    {
+      "path": "testing/unit/test_edge_message_schema.py",
+      "parent_sha256": "c3566c7acccc8ff273e2304fa3ae7c044b4cd5997d88342a4f97583861878e31",
+      "review_method": "Text/config/schema/test inspection against sources and current repository",
+      "disposition": "retained after review"
+    }
+  ],
+  "new_files": [
+    "docs/decisions/0007-october-22-review-baseline.md",
+    "docs/reviews/2026-10-22-repository-audit.md",
+    "docs/reviews/2026-10-22-file-coverage.json",
+    "docs/reviews/2026-10-22-audit-validation.json"
+  ]
+}

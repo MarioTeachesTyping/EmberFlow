@@ -13,4 +13,4 @@ React + TypeScript app showing station status, potential smoke detections (confi
 
 ## Boundaries
 
-Review imagery for offline alerts depends on the OPEN offline-snapshot decision.
+Offline review requires a representative image with each accepted event. Show incomplete evidence explicitly until metadata and image are complete. Add configuration, candidate/model approval, limited deployment/rollback and actor/action history per the v1.1 SRS. Image transport/storage and access details still need joint contracts.

@@ -1,0 +1,3 @@
+# Optional developer navigation tool; not an EmberFlow runtime/CI dependency.
+# Official PyPI distribution uses a double y; CLI command is graphify.
+graphifyy==0.9.93

@@ -1,7 +1,10 @@
 # Contributing to EmberFlow
 
-These are lightweight standards for a six-person team. When something here conflicts with the
-architecture handoff or an accepted ADR, the ADR wins; open a PR to fix this file.
+These are lightweight standards for a six-person team. Start with
+[PROJECT_REFERENCE.md](docs/PROJECT_REFERENCE.md) and the current SRS. ADR 0007 records Tomiwa's
+October 22 alignment direction; full-team/faculty review is pending. Accepted ADRs retain their
+recorded authority. Do not use the historical MVP handoff to demote current required features;
+surface real conflicts and record an explicit decision before changing the baseline.
 
 ## 1. Getting access (required for every team member)
 
@@ -15,8 +18,9 @@ The repository Jira task is not complete until all six have done this.
 
 ## 2. Branches
 
-- `main` is protected: no direct pushes, PRs only, CI must pass, and at least one approval is
-  required. *(A repository admin must set this up in GitHub settings; see "Repository setup" below.)*
+- Repository policy is PRs to `main`, passing CI and at least one approval; no direct pushes.
+  GitHub reported `main.protected = false` when checked October 22, 2026. An admin must
+  configure and verify protection and required checks (see "Repository setup" below).
 - Work on short-lived branches named `<type>/SCRUM-<id>-<short-description>`:
   - `feat/SCRUM-12-edge-buffering`
   - `fix/SCRUM-16-api`
@@ -40,7 +44,8 @@ Mark breaking contract changes with `!`, e.g. `feat(contracts)!: rename processi
 
 ## 4. Pull requests and reviews
 
-- Use the PR template. Link the Jira issue (`SCRUM-<id>`).
+- Use the PR template. Link a real Jira issue (`SCRUM-<id>`) when one applies; if none was
+  supplied or verified, say so instead of inventing a key.
 - At least **one reviewer other than the author**.
 - CI must be **green** before merging.
 - Prefer squash-merge so each PR becomes one Conventional Commit on `main`.
@@ -57,7 +62,8 @@ based on the role definitions; the team must confirm it.)*
 | Inference output contract | R1 + R3 (ML) + R2 (edge) |
 | REST API | R1 + R4 (controller) + R5 (dashboard) |
 | Database schema / migrations | R1 + R5 (data) + R4 (controller) |
-| FPS command lifecycle / policy configuration | R1 + R4 + R2 + R6 (testing) |
+| Adaptation/deployment/rollback or workload lifecycle and policy | R1 + R4 + R2 + R3 where model-related + R6 |
+| Complete detection/image receipt, retention and persistence | R1 + R2 + R4 + R5; R6 for qualification |
 | CI workflow | R1 + R6 |
 
 Once the team supplies everyone's GitHub usernames, encode this table in `.github/CODEOWNERS`.
@@ -65,7 +71,9 @@ Once the team supplies everyone's GitHub usernames, encode this table in `.githu
 ### Open decisions
 
 Do not settle an OPEN decision (see [docs/decisions/README.md](docs/decisions/README.md))
-inside a feature PR. Write or update the ADR first, get it accepted, then implement it.
+inside an implementation PR. Write or update the ADR with its actual authority, get the
+required owners' review, then implement. Distinguish recorded revision direction from full-team
+ratification. Update interfaces, fixtures, requirements and tests together when decisions close.
 
 ## 5. Formatting and linting
 

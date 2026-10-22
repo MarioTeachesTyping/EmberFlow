@@ -7,7 +7,8 @@ Tests spanning a simulated station, the controller and the database.
 
 ## Planned contents
 
-- Normal flow, offline buffering/replay and FPS command flow (see test plan)
+- Normal flow, offline metadata/image replay, partial-upload/restart handling and current-vs-historical state
+- Adaptation, candidate lifecycle/rollback, workload outcomes and access validation (see test plan)
 
 ## Boundaries
 

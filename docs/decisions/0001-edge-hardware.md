@@ -7,7 +7,7 @@
 
 ## Context
 
-EmberFlow is a budget-conscious senior-design prototype with no project funding. Edge
+EmberFlow is a budget-conscious senior-design prototype. Its budget and funding plan remain unset. Edge
 stations must run smoke inference locally on live or prerecorded video.
 
 ## Decision
@@ -27,3 +27,10 @@ accelerator board) is **not** required.
 ## Verification
 
 Pi 5 inference benchmarks for both model configurations; three-node integration demo.
+
+## October 22 review-baseline clarification
+
+The original accepted three-Pi decision is preserved. Tomiwa's later revision adds an indoor,
+no-PCB demonstration, one USB webcam verified on all three stations, wired Ethernet and an
+existing central computer. See [0007](0007-october-22-review-baseline.md); full-team review of
+that revision is pending. Exact variants/accessories and procurement are not established.

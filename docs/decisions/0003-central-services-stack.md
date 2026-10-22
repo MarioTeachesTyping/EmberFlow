@@ -2,7 +2,7 @@
 
 - **Status:** Accepted
 - **Date:** 2026-10-14 (recorded from the architecture handoff)
-- **Owner:** R4 (Gabe) for the controller; R5 (Ethan) for the dashboard
+- **Owner:** R4 (James) for the controller; R5 (Ethan) for the dashboard
 - **Reviewers:** R1 (Anthony)
 
 ## Context

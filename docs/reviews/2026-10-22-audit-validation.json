@@ -1,0 +1,34 @@
+{
+  "date": "2026-10-22",
+  "parent_commit": "3b1fe0adaa9823dd69f260f45ae1aba92e99beb4",
+  "tracked_parent_files_reviewed": 88,
+  "local_markdown_links_and_anchors_checked": 136,
+  "legacy_identifiers_preserved": 37,
+  "preserved_package_files": 17,
+  "schema_validation_rules_unchanged": true,
+  "fixtures_and_test_code_unchanged": true,
+  "canonical_srs_references_valid": true,
+  "checks": {
+    "ruff_lint": {
+      "exit_code": 0,
+      "output": "All checks passed!"
+    },
+    "ruff_format": {
+      "exit_code": 0,
+      "output": "56 files already formatted"
+    },
+    "pytest": {
+      "exit_code": 0,
+      "output": "============================= test session starts =============================\nplatform win32 -- Python 3.12.14, pytest-9.1.1, pluggy-1.7.0\nrootdir: [repository checkout]\nconfigfile: pyproject.toml\ntestpaths: testing\ncollected 14 items\n\ntesting\\unit\\test_edge_message_schema.py ..............                  [100%]\n\n============================= 14 passed in 0.09s =============================="
+    },
+    "diff_whitespace": {
+      "exit_code": 0,
+      "output": ""
+    }
+  },
+  "legacy_schema_limitations_observed": {
+    "impossible_calendar_timestamp_accepted": true,
+    "failed_result_without_reason_accepted": true
+  },
+  "limits": "Documentation checks and legacy example-schema tests only; no hardware/service/model qualification executed."
+}

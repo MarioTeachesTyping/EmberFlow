@@ -13,4 +13,4 @@ Offline and on-device evaluation of both model configurations.
 
 ## Boundaries
 
-Continuous image-quality monitoring is a stretch goal; degraded-image *evaluation* is required.
+Image-quality, input-change and meaningful disagreement methods are part of the v1.1 review scope, alongside degraded-image evaluation and candidate-model comparison. Record the methods, paired inputs, thresholds, Pi runtime and measurement limits; none are selected by this documentation update.
