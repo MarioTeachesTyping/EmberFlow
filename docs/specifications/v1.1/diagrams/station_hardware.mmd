@@ -1,0 +1,8 @@
+flowchart LR
+  PSU[Compatible power supply] -->|USB C power| PI[Raspberry Pi 5]
+  CAM[One shared USB webcam] -->|USB video data| PI
+  PI -->|USB control and peripheral power| CAM
+  PI <-->|Local storage access| STORE[Storage with metadata images and models]
+  COOL[Selected cooling assembly] ---|Thermal and mounting relationship| PI
+  PI <-->|RJ45 Ethernet| NET[Wired switch or router]
+  NET <-->|Ethernet| HOST[Existing central computer]

@@ -2,6 +2,10 @@
 
 <p align="center">Distributed edge-computing research prototype for reliable wildfire smoke monitoring.</p>
 
+Project documents and agent context: start with [docs/PROJECT_REFERENCE.md](docs/PROJECT_REFERENCE.md).
+It links the October 22 v1.1 specifications and identifies unresolved differences from this
+repository's earlier MVP draft. Agents should also read the root [AGENTS.md](AGENTS.md).
+
 > **Project status: Phase 1 — Foundation.** This repository currently contains the scaffold,
 > standards, documentation and a *proposed* message contract. **No EmberFlow subsystem
 > (edge agent, ML inference, controller, database, dashboard) has been implemented yet.**

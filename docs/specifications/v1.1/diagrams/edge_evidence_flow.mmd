@@ -1,0 +1,14 @@
+flowchart LR
+  INPUT[USB camera or local replay] --> FRAME[Frame identity and source time]
+  FRAME --> MODEL[Preprocessing and Diego model adapter]
+  MODEL --> EVENT[Detection metadata plus representative image]
+  EVENT --> BUFFER[Persistent bounded outbox]
+  TEL[Telemetry and health] --> BUFFER
+  AGENT[Edge agent and valid controller commands] --> SYNC[Retry and synchronization client]
+  BUFFER --> SYNC
+  SYNC --> INGEST[James central ingestion]
+  INGEST --> STORE[Ethan durable metadata and image storage]
+  STORE --> REVIEW[Complete event available for human review]
+  STORE --> ACK[Durable completion receipt]
+  ACK --> SYNC
+  SYNC --> CLEAN[Local cleanup under retention policy]
