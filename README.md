@@ -1,6 +1,6 @@
 <h1 align="center">EmberFlow</h1>
 
-<p align="center">Distributed edge-computing research prototype for reliable wildfire smoke monitoring.</p>
+<h3 align="center">Distributed edge-computing research prototype for reliable wildfire smoke monitoring.</h3>
 
 Project documents and agent context: start with [docs/PROJECT_REFERENCE.md](docs/PROJECT_REFERENCE.md).
 It links the October 22 v1.1 review specifications and the [repository audit](docs/reviews/2026-10-22-repository-audit.md).
@@ -15,7 +15,7 @@ EmberFlow is a two-semester senior-design project by six students: one Computer 
 student and five Computer Science students. No hardware budget or funding plan has been agreed,
 and no purchased hardware is established by the reviewed sources.
 
-## Problem and research goal
+## Problem and Research Goal
 
 Wildfire smoke monitoring at the edge has to keep working as device, network and visual
 conditions change. EmberFlow's contribution is **not** a new state-of-the-art smoke detector.
@@ -30,7 +30,7 @@ It aims to show that the following can work together and be measured:
 
 ## Scope
 
-### Current review scope
+### Current Review Scope
 
 The [v1.1 system SRS](docs/specifications/v1.1/EmberFlow_Senior_Design_SRS_v1_1.md) is the
 current review baseline. Tomiwa approved aligning this repository to that scope on October 22;
@@ -62,14 +62,14 @@ The first vertical slice is a delivery milestone, not the complete acceptance sc
 - **Handoff/acceptance:** another teammate reproduces the supported station; final hardware,
   model, interface, storage and numerical test profiles are frozen before qualification.
 
-### Out of scope
+### Out of Scope
 
 Drone integration; autonomous model retraining; certified life-safety or emergency dispatch;
 production forest-wide deployment; novel ML architecture research; Kubernetes/cloud
 orchestration as a requirement; unrestricted AI-agent control of physical devices. These stay
 out of the backlog unless the team formally revises scope.
 
-## Implemented vs planned
+## Implemented vs Planned
 
 | Component | State |
 |---|---|
@@ -83,7 +83,7 @@ out of the backlog unless the team formally revises scope.
 | Operator dashboard | Planned (project not yet initialized) |
 | Fault injection and experiments | Planned |
 
-## Logical architecture
+## Logical Architecture
 
 ```
 [Operator: React + TypeScript dashboard]
@@ -107,7 +107,7 @@ Inference runs on the Pis. The controller handles policy and collects events; it
 per-frame inference. This is a logical architecture; the physical baseline is wired Ethernet on a team-controlled LAN. Details:
 [docs/architecture/overview.md](docs/architecture/overview.md).
 
-## Technology baseline
+## Technology Baseline
 
 | Area | Decision | Status |
 |---|---|---|
@@ -121,7 +121,7 @@ per-frame inference. This is a logical architecture; the physical baseline is wi
 Python ≥ 3.11 for shared tooling. The full decision register is in
 [docs/decisions/README.md](docs/decisions/README.md).
 
-## Repository layout
+## Repository Layout
 
 | Path | Purpose | Owner |
 |---|---|---|
@@ -168,7 +168,7 @@ format check and pytest on every PR and on pushes to `main`. Dashboard lint/type
 steps turn on automatically once `dashboard/frontend/package.json` and its lockfile exist. See
 [docs/testing/test-plan.md](docs/testing/test-plan.md).
 
-## Team roles
+## Team Roles
 
 | Role | Member | Owns |
 |---|---|---|
@@ -183,7 +183,7 @@ James also appears as Gabe/Gabriel in source material and Jira; use James Connol
 Subsystem owners stay responsible for testing their own code. See
 [CONTRIBUTING.md](CONTRIBUTING.md) for the workflow.
 
-## Implementation phases
+## Implementation Phases
 
 1. **Foundation:** repository, standards, shared schemas, scope/SRS review, decision register, CI. *(in progress)*
 2. **Vertical slice:** one real or simulated station → controller → database → dashboard, with real or mocked inference.

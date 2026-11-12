@@ -24,7 +24,17 @@ signoff, procurement, completed implementation, or hardware test results.
 | System SRS | [Source](specifications/v1.1/EmberFlow_Senior_Design_SRS_v1_1.md) | [PDF](specifications/v1.1/EmberFlow_Senior_Design_SRS_v1_1.pdf) | [Word](specifications/v1.1/EmberFlow_Senior_Design_SRS_v1_1.docx) |
 
 The [diagram sources and figures](specifications/v1.1/diagrams/) cover station hardware,
-three-node deployment, and offline evidence flow. The
+three-node deployment, and offline evidence flow as a frozen v1.1 snapshot. The maintained
+architecture views live in `docs/architecture/` ([ADR 0008](decisions/0008-architecture-documentation-conventions.md)):
+
+| SRS §4 figure (v1.1 snapshot) | Maintained view |
+|---|---|
+| Figure 1: [system deployment](specifications/v1.1/diagrams/system_deployment.mmd) | [Deployment view](architecture/deployment.md#deployment-view) |
+| Figure 2: [station hardware](specifications/v1.1/diagrams/station_hardware.mmd) | Owned by R2 Tomiwa; referenced from [deployment §2](architecture/deployment.md#2-processes-on-each-raspberry-pi-5) |
+| Figure 3: [edge evidence flow](specifications/v1.1/diagrams/edge_evidence_flow.mmd) | [Primary data flow](architecture/overview.md#41-normal-operation-primary-data-flow) |
+| — | [Logical component view](architecture/overview.md#2-logical-component-view) (seven layers) |
+
+The
 [validation record](specifications/v1.1/Validation_Record.json) records document-quality checks
 from preparation of the package; it does not certify the system's acceptance tests.
 Legacy local source paths in these preserved documents identify the author's original inputs;
@@ -47,6 +57,8 @@ Existing accepted ADRs specify [Pi 5 hardware](decisions/0001-edge-hardware.md),
 [PostgreSQL with TimescaleDB](decisions/0002-central-database.md), and
 [FastAPI with React/TypeScript](decisions/0003-central-services-stack.md).
 Consult the [decision register](decisions/README.md) before selecting an open technology.
+Architecture views follow [ADR 0008](decisions/0008-architecture-documentation-conventions.md):
+`docs/architecture/` is their maintained source; the v1.1 diagrams are a frozen snapshot.
 Historical Jetson/TensorRT alternatives do not establish a Pi runtime dependency.
 
 ## Alignment decision and remaining approval
