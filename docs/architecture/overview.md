@@ -2,6 +2,10 @@
 
 **Status:** Draft. This describes the *intended* design; none of these components exist yet.
 **Owner:** R1 (Anthony), with all subsystem owners.
+**Conventions:** [ADR 0008](../decisions/0008-architecture-documentation-conventions.md). This
+document is the maintained source for the logical view and the primary data flow; the
+[v1.1 SRS §4 figures](../specifications/v1.1/diagrams/) are a frozen snapshot. The deployment
+view is in [deployment.md](deployment.md#deployment-view).
 
 ## 1. Purpose
 
@@ -15,70 +19,171 @@ React + TypeScript dashboard. Data is stored in PostgreSQL + TimescaleDB.
 The research contribution is the **integration**: local inference, health monitoring, offline
 continuity, human review and measured recovery. It is not a new detector.
 
-## 2. Logical architecture
+## 2. Logical component view
 
+EmberFlow has six runtime layers plus a Testing layer that verifies all of them. Each layer has
+one owner, and every arrow between layers is a contract (see §3.2). Items marked *v1.1* are
+required by the v1.1 SRS; team ratification of that revision is pending
+([ADR 0007](../decisions/0007-october-22-review-baseline.md)).
+
+```mermaid
+flowchart TB
+  subgraph OPERATOR["Operator layer · R5 Ethan"]
+    DASH["React + TypeScript dashboard<br/>station health · detection + image review<br/>confirm / dismiss · limits · audit<br/>model approval/deployment (v1.1)"]
+  end
+
+  subgraph CONTROL["Control layer · R4 James"]
+    API["Controller API (FastAPI)<br/>registration · ingestion · liveness/stale state"]
+    POL["Policy + recovery<br/>FPS control · resolution/model control (v1.1)<br/>trust policy · candidate/rollback · workload movement (v1.1)<br/>command lifecycle + audit"]
+  end
+
+  subgraph DATA["Data layer · R5 Ethan"]
+    DB[("PostgreSQL + TimescaleDB<br/>stations · detections · telemetry<br/>commands · audit · reviews")]
+    IMG[("Representative image storage<br/>OPEN · OD 3 / OD 9")]
+  end
+
+  subgraph MESSAGING["Messaging layer · R4 James"]
+    BROKER["Broker: MQTT or NATS<br/>OPEN · OD 2"]
+    IMGX["Image transfer path<br/>OPEN · OD 2"]
+  end
+
+  subgraph EDGE["Edge layer · R2 Tomiwa · ×3 Raspberry Pi 5"]
+    VID["Video input<br/>USB webcam or replay file"]
+    AGENT["Edge agent<br/>registration · command execution"]
+    TEL["Telemetry + health"]
+    OUTBOX[("Durable bounded outbox<br/>metadata + image + telemetry")]
+  end
+
+  subgraph ML["ML layer · R3 Diego"]
+    MODEL["Model adapter<br/>primary + lightweight model<br/>model choice OPEN · OD 4"]
+    TRUST["Trust methods (v1.1)<br/>image quality · input change · disagreement<br/>OPEN · OD 5"]
+  end
+
+  subgraph TESTING["Testing layer · R6 Dylan · not part of runtime"]
+    TEST["CI · unit + integration tests<br/>fault injection · experiments<br/>reliability + ML metrics"]
+  end
+
+  DASH -->|"REST API"| API
+  API <--> POL
+  API -->|"store before ack"| DB
+  API --> IMG
+  BROKER <-->|"telemetry · detections · commands · results · receipts"| API
+  IMGX --> API
+  VID -->|"frames"| MODEL
+  MODEL -->|"prediction · confidence · latency"| AGENT
+  TRUST --> AGENT
+  TEL --> OUTBOX
+  AGENT --> OUTBOX
+  OUTBOX <-->|"event envelope"| BROKER
+  OUTBOX -->|"images"| IMGX
+  BROKER -->|"commands"| AGENT
+
+  TEST -.->|"verifies"| EDGE
+  TEST -.->|"evaluates"| ML
+  TEST -.->|"injects faults"| MESSAGING
+  TEST -.->|"verifies"| CONTROL
+  TEST -.->|"verifies"| DATA
+  TEST -.->|"verifies"| OPERATOR
 ```
-[Operator: React + TypeScript dashboard]
-              | REST API
-              v
-[Central Controller: FastAPI] <----> [PostgreSQL + TimescaleDB]
- - station registration               - stations
- - telemetry / event ingestion        - detections
- - health + stale-state checks        - telemetry (hypertable)
- - FPS adaptation policy              - commands / audit
- - durable acknowledgments
-              |
-     MQTT or NATS (OPEN — ADR 0004)
-   telemetry, detections, commands, acks
-              |
-   +----------+----------+
-   |          |          |
-[Pi 5 #1]  [Pi 5 #2]  [Pi 5 #3]
-video+ML   video+ML   video+ML
-telemetry  telemetry  telemetry
-buffer     buffer     buffer
-FPS ctl    FPS ctl    FPS ctl
-```
 
-This is a logical view. The October 22 physical baseline uses an existing central computer,
-wired Ethernet through a switch/router, and one USB webcam to be tested on all three Pis.
-Replay supplies the other two inputs. The demonstration is indoors with mains power and no
-custom PCB. See [deployment](deployment.md) and
-[ADR 0007](../decisions/0007-october-22-review-baseline.md); full-team approval is pending.
+ML code runs **on the Pi** but is its own layer, because Diego owns it and the ML/edge contract
+(SRS SI-1.6) is a real boundary. The controller handles policy and collects events; it does not
+run per-frame inference. This is a logical view. Physical placement (three Pis and one existing
+central computer on wired Ethernet) is in [deployment](deployment.md).
 
-## 3. Layers and responsibilities
+## 3. Layers, interfaces and components
 
-| Layer | Runs on | Responsibilities | Owner | Repo path |
+### 3.1 Layers
+
+| Layer | Owner | Runs on | Responsibility |
+|---|---|---|---|
+| Edge | R2 Tomiwa | Pi 5 / simulated station | Video input, local execution, telemetry, durable offline evidence, command execution |
+| ML | R3 Diego | Pi 5 (inside the edge agent) | Models, inference contract, trust methods, model evaluation |
+| Messaging | R4 James | Central host | Transport between stations and controller; image transfer path |
+| Control | R4 James | Central host | Registration, ingestion, liveness, policies, command lifecycle, model rollout, audit |
+| Data | R5 Ethan | Central host | Durable records, telemetry time series, images, reviews, audit |
+| Operator | R5 Ethan | Operator browser | Health/trust view, image review, configuration, model approval, audit history |
+| Testing | R6 Dylan | Dev machines, CI, lab | CI, automated tests, fault injection, experiments, reliability and ML metrics. Not part of the running system |
+
+Messaging and Data are separate layers even though the ticket groups them: they have different
+owners and different open decisions (OD 2 vs OD 3). See ADR 0008.
+
+### 3.2 Interfaces between layers
+
+| Boundary | Contract | Status | Owners |
+|---|---|---|---|
+| Edge ↔ ML | ML/edge contract: frame layout, preprocessing, artifact/runtime, output schema, errors (SRS SI-1.6) | Not written; depends on OD 4 | R3 + R2 |
+| Edge ↔ Messaging | Edge event envelope and payloads ([contracts](../api/contracts.md)) | Proposal v0; [v1.1 gaps](../api/contracts.md#7-gaps-before-v11-integration) open | R2 + R4 |
+| Edge → Messaging (images) | Image upload and durable completion receipt (SRS SI-1.7) | **OPEN** · OD 2 / OD 9 | R2 + R4 + R5 |
+| Messaging ↔ Control | Broker client inside the FastAPI app | **OPEN** · [ADR 0004](../decisions/0004-messaging.md) | R4 |
+| Control ↔ Data | Database schema and migrations | Not written; OD 3 | R5 + R4 |
+| Control ↔ Operator | REST API ([contracts §5](../api/contracts.md)) | Proposal v0 | R4 + R5 |
+| Testing ↔ all layers | [Test plan](../testing/test-plan.md), fault-injection hooks, CI | Draft; CI runs contract tests | R6 + each owner |
+
+Changing any of these contracts needs the reviewers listed in
+[CONTRIBUTING.md](../../CONTRIBUTING.md#cross-subsystem-changes).
+
+### 3.3 Components in each layer
+
+| Layer | Component | Responsibilities | Owner | Repo path |
 |---|---|---|---|---|
-| Video input | Pi 5 / sim | Camera or prerecorded-file frames; adjustable processing FPS | R2 | `edge/video` |
-| Inference | Pi 5 / sim | Primary + lightweight model; emits prediction, confidence, model version, latency | R3 (interface), R2 (integration) | `ml/inference` |
-| Edge telemetry | Pi 5 / sim | CPU, memory, temperature, latency, FPS, network, camera, model version | R2 | `edge/telemetry` |
-| Edge buffer | Pi 5 / sim | Durable metadata/image evidence and retained telemetry; bounded replay with stable identity/time | R2 (+R4) | `edge/buffering` |
-| Edge agent | Pi 5 / sim | Registration, messaging client, FPS command execution and reporting | R2 | `edge/agent` |
-| Messaging | Central host | Transport for telemetry, detections, commands, results, acks | R4 | `controller/messaging` |
-| Controller API | Central host | Registration, ingestion, health/stale checks, REST for dashboard | R4 | `controller/api` |
-| Policy + recovery | Central host | Resource/trust policies, command verification, candidate rollout/rollback, workload coordination, audit | R4 | `controller/policies`, `controller/recovery` |
-| Storage | Central host | Stations, complete detections/images, telemetry, deployments/comparisons, review and audit | R5 | `data/` |
-| Dashboard | Operator browser | Health/trust, image review, configurable limits, model approval/deployment and audit | R5 | `dashboard/frontend` |
-| Testing & experiments | Dev / CI / lab | Tests, fault injection, reliability metrics | R6 | `testing/`, `experiments/` |
+| Edge | Video input | Camera or prerecorded-file frames; adjustable processing FPS | R2 | `edge/video` |
+| Edge | Edge telemetry | CPU, memory, temperature, latency, FPS, network, camera, model version | R2 | `edge/telemetry` |
+| Edge | Edge buffer | Durable metadata/image evidence and retained telemetry; bounded replay with stable identity/time | R2 (+R4) | `edge/buffering` |
+| Edge | Edge agent | Registration, messaging client, command execution and reporting | R2 | `edge/agent` |
+| ML | Inference | Primary + lightweight model; emits prediction, confidence, model version, latency | R3 (interface), R2 (integration) | `ml/inference` |
+| Messaging | Messaging | Transport for telemetry, detections, commands, results, receipts | R4 | `controller/messaging` |
+| Control | Controller API | Registration, ingestion, health/stale checks, REST for dashboard | R4 | `controller/api` |
+| Control | Policy + recovery | Resource/trust policies, command verification, candidate rollout/rollback, workload coordination, audit | R4 | `controller/policies`, `controller/recovery` |
+| Data | Storage | Stations, complete detections/images, telemetry, deployments/comparisons, review and audit | R5 | `data/` |
+| Operator | Dashboard | Health/trust, image review, configurable limits, model approval/deployment and audit | R5 | `dashboard/frontend` |
+| Testing | Testing & experiments | Tests, fault injection, reliability metrics | R6 | `testing/`, `experiments/` |
 
 **Design principle:** use practical modules inside **one** FastAPI app and **one** edge agent
 rather than many separately deployed microservices.
 
 ## 4. Primary data flows
 
-### 4.1 Normal operation
+### 4.1 Normal operation (primary data flow)
 
+Video → edge → model → controller → database → dashboard. The v1.1 snapshot of this flow is SRS
+§4 [Figure 3](../specifications/v1.1/diagrams/edge_evidence_flow.mmd).
+
+```mermaid
+sequenceDiagram
+  autonumber
+  participant V as Video source<br/>(USB webcam or replay)
+  participant E as Edge agent<br/>R2 Tomiwa
+  participant M as Model adapter<br/>R3 Diego
+  participant O as Durable outbox<br/>R2 Tomiwa
+  participant B as Broker<br/>OPEN · OD 2
+  participant C as Controller<br/>R4 James
+  participant D as Data services<br/>R5 Ethan
+  participant U as Dashboard + operator<br/>R5 Ethan
+
+  V->>E: frame + source time
+  E->>M: frame (preprocessing owner per ML/edge contract)
+  M-->>E: prediction · confidence · model version · latency
+  E->>O: persist detection metadata + representative image
+  O->>B: detection event (event_id, source_timestamp)
+  B->>C: deliver detection event
+  O->>C: upload representative image (path OPEN · OD 2)
+  C->>D: store metadata and image
+  D-->>C: both durable and retrievable together
+  C-->>O: completion receipt (format OPEN)
+  Note over C,O: Receipt only after metadata AND image are durable (SRS SI-1.7).<br/>A broker delivery ack is not enough.
+  O->>O: local cleanup under retention policy
+  U->>C: GET detections (REST)
+  C->>D: query detection + image
+  D-->>C: detection + image
+  C-->>U: detection, image, confidence, station, model
+  U->>C: POST review: confirm or dismiss
+  C->>D: store review + audit record
 ```
-camera / prerecorded video
-  -> edge video pipeline
-  -> ML inference (on the Pi)
-  -> detection + telemetry messages (envelope with event_id, source_timestamp)
-  -> messaging transport
-  -> controller + persistence: metadata AND representative image durable/retrievable
-  -> complete evidence receipt to station (format pending)
-  -> dashboard (REST) -> operator confirm / dismiss
-```
+
+Telemetry and heartbeats follow the same edge → outbox → broker → controller → data path
+(steps 5–6 and 8), without an image. If any step after 4 fails, the evidence stays in the outbox
+and is retried; see §4.2 and §4.3.
 
 ### 4.2 Network outage
 

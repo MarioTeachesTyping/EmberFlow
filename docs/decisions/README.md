@@ -20,6 +20,12 @@ existing host, required offline image evidence and restoration of the original r
 scope. These directions are recorded; exact parts, implementations and numerical limits below
 remain open. Use the current SRS in [the requirements index](../requirements/EF-SRS-001.md).
 
+## Documentation conventions
+
+[0008](0008-architecture-documentation-conventions.md) sets how architecture views are drawn and
+maintained: Mermaid in `docs/architecture/` as the source of truth, six runtime layers (messaging
+and data kept separate) plus a non-runtime Testing layer, `OPEN` labels for undecided items. Accepted by R1; team review pending through the PR.
+
 ## SRS open decisions and closure gates
 
 `SRS OD n` refers to section 13 of the v1.1 SRS. These are document identifiers, not fabricated

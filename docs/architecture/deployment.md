@@ -2,6 +2,11 @@
 
 **Status:** Draft plan. Nothing here has been deployed or verified yet.
 **Owner:** R1 (Anthony), with R2 (edge) and R4/R5 (central services).
+**Conventions:** [ADR 0008](../decisions/0008-architecture-documentation-conventions.md). This
+document is the maintained deployment view. The v1.1 snapshot is SRS §4
+[Figure 1](../specifications/v1.1/diagrams/system_deployment.mmd) (deployment); the physical
+station hardware is SRS §4 [Figure 2](../specifications/v1.1/diagrams/station_hardware.mmd),
+owned by R2 Tomiwa.
 
 ## 1. Topology assumptions
 
@@ -17,19 +22,67 @@
 - **Development:** every developer can run a **simulated station** with prerecorded video on
   a laptop. The physical Pis are only needed for hardware acceptance tests.
 
-```
-           team-owned central computer
- +--------------------------------------------------+
- | FastAPI controller | PostgreSQL + TimescaleDB    |
- | messaging broker (MQTT or NATS — OPEN)           |
- | dashboard (static React build served to browser) |
- +--------------------------------------------------+
-            ^            ^            ^
-            |   LAN      |            |
-       [Pi 5 #1]    [Pi 5 #2]    [Pi 5 #3]
+### Deployment view
+
+Three edge stations → a wired network that may be disconnected → the controller on the central
+host → data services → dashboard. Dotted links are the ones EmberFlow must tolerate losing.
+
+```mermaid
+flowchart LR
+  subgraph STATIONS["Edge stations · R2 Tomiwa"]
+    S1["Pi 5 station 001<br/>shared USB webcam (live)<br/>edge agent + model + outbox"]
+    S2["Pi 5 station 002<br/>local replay footage<br/>edge agent + model + outbox"]
+    S3["Pi 5 station 003<br/>local replay footage<br/>edge agent + model + outbox"]
+  end
+
+  NET{{"Wired Ethernet switch or router<br/>≥ 4 endpoint ports<br/>equipment + addressing OPEN · OD 10"}}
+
+  subgraph HOST["Existing team laptop or desktop · identity/OS OPEN · OD 10"]
+    subgraph CTRL["Controller · R4 James"]
+      BROKER["Broker: MQTT or NATS<br/>OPEN · OD 2"]
+      API["FastAPI controller<br/>ingestion · policy · command lifecycle"]
+    end
+    subgraph DATA["Data services · R5 Ethan"]
+      DB[("PostgreSQL + TimescaleDB")]
+      IMG[("Image storage<br/>OPEN · OD 3 / OD 9")]
+    end
+    subgraph UI["Dashboard · R5 Ethan"]
+      WEB["Static React + TypeScript build"]
+    end
+  end
+
+  OP["Operator browser"]
+
+  S1 <-.->|"Ethernet · may disconnect"| NET
+  S2 <-.->|"Ethernet · may disconnect"| NET
+  S3 <-.->|"Ethernet · may disconnect"| NET
+  NET <-->|"Ethernet"| BROKER
+  NET -->|"image transfer · OPEN · OD 2"| API
+  BROKER <--> API
+  API --> DB
+  API --> IMG
+  WEB -->|"REST API"| API
+  OP --> WEB
 ```
 
+Notes on the view:
+
+- **One live camera.** The single USB webcam is shown on station 001. It is tested on each Pi
+  in turn (SRS HI-1.8); the other two stations use local replay footage at any given time.
+- **"May disconnect" is not wireless.** The network is wired Ethernet. Disconnection comes from
+  fault injection or a cable/switch failure. Link presence and controller reachability are
+  separate states (SRS NET1). No internet connection is assumed.
+- **One host, separate services.** The controller, data services and dashboard are separate
+  services with separate owners, all on the same existing computer. They are not separate
+  machines.
+- **Development.** Any developer can replace a station with a simulated station running
+  prerecorded video on a laptop. The physical Pis are needed only for hardware acceptance tests.
+
 ## 2. Processes on each Raspberry Pi 5
+
+The physical hardware of one station (power, camera, storage, cooling, Ethernet) is drawn in
+SRS §4 [Figure 2](../specifications/v1.1/diagrams/station_hardware.mmd) and owned by R2 Tomiwa.
+This section covers the software running on that hardware.
 
 | Process / module | Purpose | Notes |
 |---|---|---|
