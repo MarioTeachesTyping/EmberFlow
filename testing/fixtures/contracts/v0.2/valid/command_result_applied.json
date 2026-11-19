@@ -1,0 +1,16 @@
+{
+  "schema_version": "0.2",
+  "event_id": "1a2b3c4d-0001-4a00-8000-000000000006",
+  "message_type": "command_result",
+  "station_id": "station-sim-01",
+  "session_id": "8b1f6c3e-2a4d-4e7f-9c10-5d6e7f8a9b0c",
+  "sequence": 8,
+  "source_timestamp": "2026-11-19T18:00:00Z",
+  "payload": {
+    "command_id": "c0ffee00-0000-4000-8000-000000000001",
+    "state": "applied",
+    "applied": {
+      "requested_fps": 4
+    }
+  }
+}

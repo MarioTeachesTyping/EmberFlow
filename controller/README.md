@@ -9,7 +9,7 @@ Single FastAPI application that coordinates the stations. Prefer modules inside 
 ## Planned contents
 
 - `api/` — REST endpoints for the dashboard and station registration
-- `messaging/` — broker client and ingestion (MQTT vs NATS OPEN)
+- `messaging/` — MQTT client for the Mosquitto broker and ingestion (ADR 0004)
 - `policies/` — resource/trust policy, FPS/resolution/model choices and workload coordination
 - `recovery/` — command verification, candidate/limited deployment, rollback, workload outcomes and complete evidence receipt
 

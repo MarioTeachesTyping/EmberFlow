@@ -1,0 +1,21 @@
+{
+  "schema_version": "0.2",
+  "event_id": "1a2b3c4d-0001-4a00-8000-000000000003",
+  "message_type": "telemetry",
+  "station_id": "station-sim-01",
+  "sequence": 6,
+  "source_timestamp": "2026-11-19T18:00:00Z",
+  "payload": {
+    "cpu_percent": 63.5,
+    "memory_percent": 41.2,
+    "temperature_c": 61.0,
+    "inference_latency_ms": 85.3,
+    "processing_fps": 8.0,
+    "network_status": "connected",
+    "camera_status": "ok",
+    "video_source_type": "file",
+    "active_model_version": "example-model-0.0.0",
+    "storage_status": "ok",
+    "clock_synchronized": true
+  }
+}

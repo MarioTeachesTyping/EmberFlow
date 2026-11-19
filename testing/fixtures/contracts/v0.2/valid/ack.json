@@ -1,0 +1,28 @@
+{
+  "schema_version": "0.2",
+  "event_id": "1a2b3c4d-0002-4a00-8000-000000000004",
+  "message_type": "ack",
+  "station_id": "station-sim-01",
+  "source_timestamp": "2026-11-19T18:00:00Z",
+  "payload": {
+    "results": [
+      {
+        "event_id": "1a2b3c4d-0001-4a00-8000-000000000004",
+        "status": "stored"
+      },
+      {
+        "event_id": "1a2b3c4d-0001-4a00-8000-000000000003",
+        "status": "duplicate"
+      },
+      {
+        "event_id": "1a2b3c4d-0001-4a00-8000-000000000099",
+        "status": "rejected",
+        "error": {
+          "code": "schema_validation_failed",
+          "message": "payload.confidence must be between 0 and 1.",
+          "retryable": false
+        }
+      }
+    ]
+  }
+}

@@ -17,7 +17,7 @@ During connectivity loss, inference continues and accepted detection metadata/im
 |---|---|
 | **SQLite (recommended)** | Durable, transactional, in the Python standard library, single file |
 | Append-only file / JSON lines | Simple, but harder to mark acks and survive partial writes |
-| Broker-side persistence only | Depends on the open ADR 0004; doesn't cover controller-side store-then-ack |
+| Broker-side persistence only | Mosquitto persistence ([ADR 0004](0004-messaging.md)) doesn't survive a station losing its link to the broker and doesn't cover controller-side store-then-ack |
 
 ## Decision
 

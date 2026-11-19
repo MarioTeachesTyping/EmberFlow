@@ -12,6 +12,7 @@ Do not turn that status into team approval or treat remaining technical details 
 | [0001](0001-edge-hardware.md) | Three Raspberry Pi 5 stations; no Jetson requirement |
 | [0002](0002-central-database.md) | PostgreSQL with TimescaleDB |
 | [0003](0003-central-services-stack.md) | FastAPI controller; React + TypeScript dashboard |
+| [0004](0004-messaging.md) | MQTT with Eclipse Mosquitto broker (confirmed by R4 James, November 19, 2026) |
 
 ## Revision baseline recorded for review
 
@@ -35,7 +36,7 @@ undefined targets.
 | SRS item | Still to decide / record | Owners | Closure gate | Related record |
 |---|---|---|---|---|
 | OD 1 | Pi RAM/storage, supply/cables/cooling, exact USB camera and available equipment | Tomiwa, Diego, Anthony | Before procurement | [0001](0001-edge-hardware.md), [0007](0007-october-22-review-baseline.md) |
-| OD 2 | MQTT vs NATS, image transfer, routes, access and complete durable-receipt semantics | James, Tomiwa, Anthony; Ethan for image persistence | Before integration contract freeze | [0004](0004-messaging.md), [contract gaps](../api/contracts.md#7-gaps-before-v11-integration) |
+| OD 2 | Transport decided: MQTT with Mosquitto ([0004](0004-messaging.md)). Still open: MQTT version/client, topics/QoS, broker access, image transfer and complete durable-receipt semantics | James, Tomiwa, Anthony; Ethan for image persistence | Before integration contract freeze | [0004](0004-messaging.md), [contract gaps](../api/contracts.md#7-gaps-before-v11-integration) |
 | OD 3 | Database/extension versions, image persistence and migration configuration | Ethan, James | Before durable-ingestion tests | [0002](0002-central-database.md) |
 | OD 4 | Primary/alternative artifacts, Pi runtime, dependencies, preprocessing and dataset split | Diego, Tomiwa | Before platform qualification | [0006](0006-ml-baseline.md) |
 | OD 5 | Quality/input-change/disagreement methods and evaluation inputs | Diego, Dylan | Before trust-monitoring tests | SRS FR-3.5–FR-3.7 |

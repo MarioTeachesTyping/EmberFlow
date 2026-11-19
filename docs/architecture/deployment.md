@@ -39,7 +39,7 @@ flowchart LR
 
   subgraph HOST["Existing team laptop or desktop · identity/OS OPEN · OD 10"]
     subgraph CTRL["Controller · R4 James"]
-      BROKER["Broker: MQTT or NATS<br/>OPEN · OD 2"]
+      BROKER["MQTT broker: Mosquitto<br/>ADR 0004"]
       API["FastAPI controller<br/>ingestion · policy · command lifecycle"]
     end
     subgraph DATA["Data services · R5 Ethan"]
@@ -103,7 +103,7 @@ physical connections, power/thermal observations and the per-station hardware/so
 |---|---|---|
 | Controller | Python FastAPI | Decided |
 | Database | PostgreSQL + TimescaleDB | Decided |
-| Messaging broker | MQTT broker **or** NATS server | **OPEN** |
+| Messaging broker | MQTT with Eclipse Mosquitto | Decided ([ADR 0004](../decisions/0004-messaging.md)); version and configuration not chosen |
 | Dashboard | React + TypeScript (static build) | Decided; build tooling not chosen |
 | Redis | — | Not required |
 
@@ -115,14 +115,14 @@ compose file will be added only once it has been written and actually run.
 - All runtime configuration comes from environment variables / `.env` files. The template is
   [`.env.example`](../../.env.example).
 - Each Pi has its own `.env` with a unique `STATION_ID`.
-- `MESSAGING_BACKEND` stays empty until ADR 0004 is accepted.
+- `MQTT_URL` points at the Mosquitto broker on the central host ([ADR 0004](../decisions/0004-messaging.md)).
 - FPS policy values are intentionally blank until benchmarked.
 - Secrets (database passwords, broker credentials) live only in local `.env` files that are
   never committed.
 
 ## 5. Startup / deployment plan (proposed order)
 
-1. Start central services: database → messaging broker → controller → dashboard.
+1. Start central services: database → Mosquitto broker → controller → dashboard.
 2. Apply database migrations (tool still to be chosen; see `data/migrations/`).
 3. Start each station's edge agent. It registers with the controller and begins publishing.
 4. Check that each station shows as healthy on the dashboard.
@@ -138,7 +138,7 @@ source. Full-team/faculty ratification of the revised scope is pending; no deplo
 - [ ] Exact Pi OS image and Python version
 - [ ] Camera model(s) and how each station's camera is configured
 - [ ] Central host OS and Docker setup
-- [ ] Broker setup (after ADR 0004)
+- [ ] Mosquitto setup: version, listener/port, access control and persistence settings
 - [ ] Commands that have been run and verified to bring up the full stack
 
 - [ ] Representative-image persistence, integrity, receipt, retention and capacity profile

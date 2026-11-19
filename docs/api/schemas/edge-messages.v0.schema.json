@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://emberflow.local/schemas/edge-messages.v0.schema.json",
   "title": "EmberFlow edge message envelope (PROPOSAL v0)",
-  "description": "LEGACY PROPOSAL v0 — not approved and incomplete for the October 22 v1.1 review baseline (see docs/api/contracts.md section 7). Transport-agnostic envelope for messages exchanged between edge stations and the controller. Valid for MQTT or NATS; the transport decision is OPEN (ADR 0004). Change only via a reviewed contracts PR (see docs/api/contracts.md).",
+  "description": "LEGACY PROPOSAL v0 — not approved and incomplete for the October 22 v1.1 review baseline (see docs/api/contracts.md section 7). Transport-agnostic envelope for messages exchanged between edge stations and the controller. Carried over MQTT with a Mosquitto broker (ADR 0004); topics and QoS are not yet agreed. Change only via a reviewed contracts PR (see docs/api/contracts.md).",
   "type": "object",
   "additionalProperties": false,
   "required": ["schema_version", "event_id", "message_type", "station_id", "source_timestamp", "payload"],

@@ -50,12 +50,13 @@ they are not repository dependencies. The original v1.0 PDFs are not included in
 - Offline detection evidence includes metadata, one representative still image per event,
   and retained telemetry. Synchronization completes only when metadata and image are durable
   centrally; retransmission must be safe and central completion idempotent.
-- Budget, exact parts, numerical performance limits, model/runtime, messaging and image
+- Budget, exact parts, numerical performance limits, model/runtime, MQTT topics/QoS, image
   transport, addressing, and bounded storage policy still require decisions and evidence.
 
 Existing accepted ADRs specify [Pi 5 hardware](decisions/0001-edge-hardware.md),
-[PostgreSQL with TimescaleDB](decisions/0002-central-database.md), and
-[FastAPI with React/TypeScript](decisions/0003-central-services-stack.md).
+[PostgreSQL with TimescaleDB](decisions/0002-central-database.md),
+[FastAPI with React/TypeScript](decisions/0003-central-services-stack.md), and
+[MQTT with a Mosquitto broker](decisions/0004-messaging.md) (confirmed by James, November 19, 2026).
 Consult the [decision register](decisions/README.md) before selecting an open technology.
 Architecture views follow [ADR 0008](decisions/0008-architecture-documentation-conventions.md):
 `docs/architecture/` is their maintained source; the v1.1 diagrams are a frozen snapshot.
@@ -77,7 +78,8 @@ v0 schema's image/session/command gaps and the need for team/faculty ratificatio
 Do not treat Tomiwa's revision direction as team approval, select open technologies, or claim
 implementation from these documents. Later scope changes need an explicit decision and aligned
 SRS, ADRs, contracts, tests and ownership. See the [decision register](decisions/README.md) for
-all ten SRS open items, closure gates and known dated Jira references.
+all ten SRS open items, closure gates and known dated Jira references. Technical risks
+(RK-1 to RK-12, based on SRS §13) are tracked in the [risk register](risk-register.md).
 
 ## Owners and repository locations
 

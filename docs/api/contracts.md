@@ -13,15 +13,16 @@
 
 ## 1. Transport independence
 
-The messaging transport (**MQTT vs NATS**) is **OPEN** ([ADR 0004](../decisions/0004-messaging.md)).
-The contract below is a JSON message body and works with either transport. Topic/subject
-names, QoS levels and broker-level delivery guarantees will be defined once the ADR is
-accepted. **Reliability must not depend on broker-level exactly-once delivery.** It comes from
-stable `event_id`s, store-then-ack on the controller, and deduplication.
+The messaging transport is **MQTT with an Eclipse Mosquitto broker**
+([ADR 0004](../decisions/0004-messaging.md), accepted November 19, 2026). The contract below
+is the JSON message body carried in MQTT publishes. MQTT version, topic names, QoS levels,
+retained/persistent-session settings and broker access are still to be agreed.
+**Reliability must not depend on MQTT QoS or broker-level delivery.** It comes from stable
+`event_id`s, store-then-ack on the controller, and deduplication.
 
-Topic/subject naming (placeholder, decided with ADR 0004):
+MQTT topic naming (placeholder, not yet agreed):
 
-| Direction | Message types | Placeholder name |
+| Direction | Message types | Placeholder topic |
 |---|---|---|
 | Station → controller | `telemetry`, `detection`, `command_result` | `emberflow/v0/stations/{station_id}/{message_type}` *(TBD)* |
 | Controller → station | `fps_command`, `ack` | `emberflow/v0/stations/{station_id}/{message_type}` *(TBD)* |
@@ -146,7 +147,7 @@ All endpoints are prefixed with `/api/v1`. JSON throughout.
 
 | Method | Path | Purpose |
 |---|---|---|
-| `POST` | `/stations/register` | Station registration (if registration happens over REST rather than messaging; TBD with ADR 0004) |
+| `POST` | `/stations/register` | Station registration (if registration happens over REST rather than MQTT; TBD) |
 | `GET` | `/stations` | List stations with health: `healthy` · `unhealthy` · `stale`, last seen, active model, current FPS |
 | `GET` | `/stations/{station_id}` | Station detail |
 | `GET` | `/stations/{station_id}/telemetry?from=&to=` | Telemetry history |
@@ -208,6 +209,7 @@ and jointly retrievable. Receipt covers the whole evidence unit. Retries after l
 safe; local cleanup follows the selected post-receipt retention policy. A broker receipt, existing
 event ID or HTTP success for metadata alone does not meet this requirement.
 
-Retain transport independence while MQTT/NATS and image transfer remain open. Contract revisions
+MQTT with Mosquitto is accepted; keep the JSON body independent of topic/QoS details while those
+and the image transfer path remain open. Contract revisions
 must update schemas and valid/invalid fixtures together and follow the reviewers in CONTRIBUTING.
 These planning requirements do not silently add new fields to the existing v0 wire format.

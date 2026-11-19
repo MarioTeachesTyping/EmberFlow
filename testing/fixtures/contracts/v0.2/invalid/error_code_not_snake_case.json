@@ -1,0 +1,20 @@
+{
+  "schema_version": "0.2",
+  "event_id": "1a2b3c4d-0001-4a00-8000-000000000008",
+  "message_type": "error",
+  "station_id": "station-sim-01",
+  "session_id": "8b1f6c3e-2a4d-4e7f-9c10-5d6e7f8a9b0c",
+  "sequence": 10,
+  "source_timestamp": "2026-11-19T18:00:00Z",
+  "payload": {
+    "component": "messaging",
+    "error": {
+      "code": "Invalid-Message",
+      "message": "Received message could not be parsed as JSON.",
+      "retryable": false,
+      "details": {
+        "topic": "placeholder/topic"
+      }
+    }
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "schema_version": "0.2",
+  "event_id": "1a2b3c4d-0001-4a00-8000-000000000005",
+  "message_type": "model_info",
+  "station_id": "station-sim-01",
+  "session_id": "8b1f6c3e-2a4d-4e7f-9c10-5d6e7f8a9b0c",
+  "sequence": 1,
+  "source_timestamp": "2026-11-19T18:00:00Z",
+  "payload": {
+    "reason": "startup",
+    "models": [
+      {
+        "model_version": "example-model-0.0.0",
+        "role": "candidate",
+        "deployment_id": "deploy-example-1",
+        "artifact_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+        "runtime": "example-runtime"
+      },
+      {
+        "model_version": "example-model-small-0.0.0",
+        "role": "fallback",
+        "deployment_id": null
+      }
+    ]
+  }
+}
