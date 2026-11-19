@@ -1,0 +1,17 @@
+{
+  "schema_version": "0.2",
+  "event_id": "1a2b3c4d-0001-4a00-8000-000000000004",
+  "message_type": "detection",
+  "station_id": "station-sim-01",
+  "session_id": "8b1f6c3e-2a4d-4e7f-9c10-5d6e7f8a9b0c",
+  "sequence": 7,
+  "source_timestamp": "2026-11-19T18:00:00Z",
+  "payload": {
+    "frame_id": "frame-000123",
+    "prediction": "smoke",
+    "confidence": 0.87,
+    "model_version": "example-model-0.0.0",
+    "inference_latency_ms": 82.1,
+    "snapshot_ref": "example-snapshot-ref"
+  }
+}
