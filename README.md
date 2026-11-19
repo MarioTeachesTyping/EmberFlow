@@ -2,6 +2,10 @@
 
 <h3 align="center">Distributed edge-computing research prototype for reliable wildfire smoke monitoring.</h3>
 
+<p align="center">
+  <img src="dashboard/frontend/emberflow-banner.png" alt="EmberFlow Banner" width="800">
+</p>
+
 Project documents and agent context: start with [docs/PROJECT_REFERENCE.md](docs/PROJECT_REFERENCE.md).
 It links the October 22 v1.1 review specifications and the [repository audit](docs/reviews/2026-10-22-repository-audit.md).
 Agents should also read the root [AGENTS.md](AGENTS.md).
@@ -15,7 +19,7 @@ EmberFlow is a two-semester senior-design project by six students: one Computer 
 student and five Computer Science students. No hardware budget or funding plan has been agreed,
 and no purchased hardware is established by the reviewed sources.
 
-## Problem and Research Goal
+## Problem & Research Goal
 
 Wildfire smoke monitoring at the edge has to keep working as device, network and visual
 conditions change. EmberFlow's contribution is **not** a new state-of-the-art smoke detector.

@@ -77,7 +77,8 @@ v0 schema's image/session/command gaps and the need for team/faculty ratificatio
 Do not treat Tomiwa's revision direction as team approval, select open technologies, or claim
 implementation from these documents. Later scope changes need an explicit decision and aligned
 SRS, ADRs, contracts, tests and ownership. See the [decision register](decisions/README.md) for
-all ten SRS open items, closure gates and known dated Jira references.
+all ten SRS open items, closure gates and known dated Jira references. Technical risks
+(RK-1 to RK-12, based on SRS §13) are tracked in the [risk register](risk-register.md).
 
 ## Owners and repository locations
 

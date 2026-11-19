@@ -14,6 +14,7 @@ ownership, implementation locations, the v1.1 alignment decision and remaining r
 | [api/schemas/](api/schemas/) | Machine-readable JSON Schema for the edge message contract | **Proposal v0** |
 | [requirements/EF-SRS-001.md](requirements/EF-SRS-001.md) | Current SRS entry point and legacy-ID crosswalk | **v1.1 review scope; team approval pending** |
 | [reviews/2026-10-22-repository-audit.md](reviews/2026-10-22-repository-audit.md) | Sweep findings, evidence, coverage and remaining gaps | October 22 audit |
+| [risk-register.md](risk-register.md) | Technical risks RK-1 to RK-12 with impact, mitigation and owner | Draft — team review pending |
 | [decisions/](decisions/) | Decision register and architecture decision records (ADRs) | Mixed: see register |
 | [testing/test-plan.md](testing/test-plan.md) | Test matrix, fault injection, acceptance checks, evaluation protocol | Draft |
 | [research/](research/) | Research notes and evaluation write-ups | Empty |
