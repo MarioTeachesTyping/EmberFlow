@@ -33,7 +33,7 @@ Without conventions, the two sets could drift into conflicting versions of the s
    disconnected (for example by fault injection or a cable or switch failure). Diagrams must
    not imply a wireless link or an internet dependency.
 5. **Open items on diagrams.** Undecided choices appear on diagrams labelled `OPEN` with their
-   SRS open-decision number (for example "Broker: MQTT or NATS — OPEN, OD 2"). Diagrams never
+   SRS open-decision number (for example "Image transfer path — OPEN, OD 2"). Diagrams never
    pick an open technology.
 6. **Scope drawn.** The logical view includes the v1.1 required capabilities (trust
    monitoring, model lifecycle with candidate/shadow/rollback, resolution/model control and

@@ -8,7 +8,7 @@ Long-running station process that wires video, inference, telemetry and bufferin
 ## Planned contents
 
 - Station registration through an interface to be frozen with R1/R4 (registration is not a v0 message type)
-- Messaging client behind an interface (MQTT vs NATS is OPEN — ADR 0004)
+- MQTT client for the Mosquitto broker (ADR 0004), behind a small interface for testing
 - Command handlers: validate schema, target, bounds, expiry and duplicate ID; report correlated outcomes
 - FPS/resolution/model changes, known-good rollback and designated processing workers; wire formats remain to be reviewed
 - A simulated-station mode so every developer can run without a Pi

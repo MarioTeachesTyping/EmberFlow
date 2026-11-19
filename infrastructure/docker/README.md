@@ -3,11 +3,11 @@
 **Owner:** R1 — Anthony (with R4, R5)  
 **Status:** Not implemented — scaffold only.
 
-Planned container setup for the controller, PostgreSQL + TimescaleDB, the messaging broker and the dashboard on the team-owned computer.
+Planned container setup for the controller, PostgreSQL + TimescaleDB, the Mosquitto MQTT broker and the dashboard on the team-owned computer.
 
 ## Planned contents
 
-- A compose file will be added once the messaging broker is chosen and the compose setup has been verified to run.
+- A compose file will be added once the Mosquitto configuration (version, ports, access) is agreed and the compose setup has been verified to run.
 
 ## Boundaries
 

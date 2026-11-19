@@ -96,7 +96,8 @@ severity ratings have not been assigned yet.
 ### RK-6 Technology indecision
 
 - **Impact:** Ten open decisions (OD 1 to OD 10) block procurement, contracts, durable-ingestion
-  tests and qualification. If they stay open past their gates, dependent work stalls or
+  tests and qualification. OD 2's transport choice is closed (MQTT with Mosquitto,
+  [ADR 0004](decisions/0004-messaging.md)); its topic/QoS and image-transfer parts remain open. If they stay open past their gates, dependent work stalls or
   proceeds on assumptions.
 - **Mitigation:** Track each OD with an owner and closure gate in the
   [decision register](decisions/README.md). Close each one with an ADR before its gate, and do

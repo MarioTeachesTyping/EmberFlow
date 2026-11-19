@@ -95,7 +95,7 @@ out of the backlog unless the team formally revises scope.
               v
 [Central Controller: FastAPI] <----> [PostgreSQL + TimescaleDB]
               |
-     MQTT or NATS (OPEN DECISION)
+     MQTT (Mosquitto broker)
    telemetry, detections, commands
               |
    +----------+----------+
@@ -118,7 +118,7 @@ per-frame inference. This is a logical architecture; the physical baseline is wi
 | Edge hardware | 3 × Raspberry Pi 5 (no Jetson) | Accepted — [ADR 0001](docs/decisions/0001-edge-hardware.md) |
 | Database | PostgreSQL + TimescaleDB | Accepted — [ADR 0002](docs/decisions/0002-central-database.md) |
 | Controller / dashboard | Python FastAPI / React + TypeScript | Accepted — [ADR 0003](docs/decisions/0003-central-services-stack.md) |
-| Messaging | MQTT **or** NATS | **OPEN** — [ADR 0004](docs/decisions/0004-messaging.md) |
+| Messaging | MQTT with Eclipse Mosquitto broker | Accepted — [ADR 0004](docs/decisions/0004-messaging.md) |
 | Edge offline buffer | SQLite recommended | **Proposed** — [ADR 0005](docs/decisions/0005-edge-offline-buffer.md) |
 | ML baseline and dataset | Lightweight pretrained candidates | **OPEN** — [ADR 0006](docs/decisions/0006-ml-baseline.md) |
 

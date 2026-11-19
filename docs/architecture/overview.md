@@ -43,7 +43,7 @@ flowchart TB
   end
 
   subgraph MESSAGING["Messaging layer · R4 James"]
-    BROKER["Broker: MQTT or NATS<br/>OPEN · OD 2"]
+    BROKER["MQTT broker: Mosquitto<br/>ADR 0004"]
     IMGX["Image transfer path<br/>OPEN · OD 2"]
   end
 
@@ -115,7 +115,7 @@ owners and different open decisions (OD 2 vs OD 3). See ADR 0008.
 | Edge ↔ ML | ML/edge contract: frame layout, preprocessing, artifact/runtime, output schema, errors (SRS SI-1.6) | Not written; depends on OD 4 | R3 + R2 |
 | Edge ↔ Messaging | Edge event envelope and payloads ([contracts](../api/contracts.md)) | Proposal v0; [v1.1 gaps](../api/contracts.md#7-gaps-before-v11-integration) open | R2 + R4 |
 | Edge → Messaging (images) | Image upload and durable completion receipt (SRS SI-1.7) | **OPEN** · OD 2 / OD 9 | R2 + R4 + R5 |
-| Messaging ↔ Control | Broker client inside the FastAPI app | **OPEN** · [ADR 0004](../decisions/0004-messaging.md) | R4 |
+| Messaging ↔ Control | MQTT client inside the FastAPI app | Transport accepted ([ADR 0004](../decisions/0004-messaging.md)); topics/QoS open | R4 |
 | Control ↔ Data | Database schema and migrations | Not written; OD 3 | R5 + R4 |
 | Control ↔ Operator | REST API ([contracts §5](../api/contracts.md)) | Proposal v0 | R4 + R5 |
 | Testing ↔ all layers | [Test plan](../testing/test-plan.md), fault-injection hooks, CI | Draft; CI runs contract tests | R6 + each owner |
@@ -156,7 +156,7 @@ sequenceDiagram
   participant E as Edge agent<br/>R2 Tomiwa
   participant M as Model adapter<br/>R3 Diego
   participant O as Durable outbox<br/>R2 Tomiwa
-  participant B as Broker<br/>OPEN · OD 2
+  participant B as Mosquitto broker<br/>MQTT · ADR 0004
   participant C as Controller<br/>R4 James
   participant D as Data services<br/>R5 Ethan
   participant U as Dashboard + operator<br/>R5 Ethan
@@ -258,13 +258,14 @@ correlated outcome and reproducible before/action/after evidence, not merely a c
   central host is a known risk; store source and receive time, session/sequence and clock validity. Use fresh heartbeat/contact rules for liveness and monotonic durations for latency; neither arrival order nor source time alone proves current health.
 - **Idempotency:** `event_id` (UUID) is assigned once at the source and never regenerated.
 - **Versioning:** each message carries `schema_version`; breaking changes bump it.
-- **Security (prototype level):** no secrets in Git, configuration via `.env`. Broker and API
-  authentication depend on the messaging decision and are still to be designed.
+- **Security (prototype level):** no secrets in Git, configuration via `.env`. Mosquitto broker
+  access control and API authentication are still to be designed.
 
 ## 6. Open architectural decisions
 
 Use the [decision register](../decisions/README.md) for all ten SRS open items and closure gates.
 Physical Ethernet, USB camera type and required image retention are in the review baseline;
-exact parts, transport/receipt, algorithms, profiles, capacity, budget and host configuration
+MQTT with Mosquitto is accepted ([ADR 0004](../decisions/0004-messaging.md)). Exact parts,
+image transfer/receipt, MQTT topics/QoS, algorithms, profiles, capacity, budget and host configuration
 remain open. The [legacy contract gaps](../api/contracts.md#7-gaps-before-v11-integration) must
 be closed before treating Proposal v0 as an integration contract.
